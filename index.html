@@ -566,7 +566,8 @@
       let opts = '<option value="">— เลือกสินค้า —</option>';
       sheet.slice(1).forEach(r => { if(r[0]) opts += `<option value="${r[0]}">${r[0]}</option>`; });
       if(pSel) pSel.innerHTML = opts;
-      if(cSel) cSel.innerHTML = '<option value="">— เลือกสินค้า —</option>' + PRODUCTS.map((p, i) => `<option value="${i}">${p.name}</option>`).join('');
+      // Also use Excel items for Cart Selection
+      if(cSel) cSel.innerHTML = opts;
     }
 
     function onPick() {
@@ -672,9 +673,14 @@
     }
 
     function addToCart() {
-      const idx = document.getElementById("cartProductSel").value; if(idx==="") return;
-      const p = PRODUCTS[idx]; const qty = parseInt(document.getElementById("cartProductQty").value)||1;
-      CART.push({...p, qty}); renderCart();
+      const val = document.getElementById("cartProductSel").value; if(!val) return;
+      const qty = parseInt(document.getElementById("cartProductQty").value)||1;
+      
+      // Try to find physical info from PRODUCTS or Excel (simplified)
+      let prod = PRODUCTS.find(p => p.name === val);
+      if(!prod) prod = { name: val, wKg: 0.5, wid: 20, len: 20, hei: 10 }; // Default if not in manual list
+      
+      CART.push({...prod, qty}); renderCart();
     }
 
     function renderCart() {
@@ -697,9 +703,29 @@
       const ln = parseFloat(document.getElementById("cartTotalLn").value)||0;
       const ht = parseFloat(document.getElementById("cartTotalHt").value)||0;
       const zi = document.getElementById("cartZone").selectedIndex;
-      if(w<=0) return;
+      if(w<=0 && CART.length === 0) return;
+      
       const res = document.getElementById("cartCalcResult"); res.style.display = "block";
       const tbody = document.getElementById("cartCalcTbody"); tbody.innerHTML = "";
+      
+      // 1. Try Guideline Match for combined items
+      let combinedName = CART.map(item => item.name).sort().join(" + ");
+      let data = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA;
+      let sheet = data.sheets[data.activeSheet] || [];
+      let headers = sheet[0];
+      let row = sheet.find(r => r[0] === combinedName);
+      
+      if(row) {
+        // Find best carrier from Guideline row
+        CARRIERS.forEach(c => {
+          const hIdx = headers.findIndex(h => h.toLowerCase().includes(c));
+          const pr = hIdx !== -1 ? row[hIdx] : null;
+          tbody.innerHTML += `<tr class="best"><td style="color:var(--accent); font-weight:bold;">${ID_MAP[c]} (Guideline Match)</td><td class="r">ตามตาราง</td><td class="r" style="font-weight:800; color:var(--accent);">${pr?pr.toLocaleString()+' ฿':'—'}</td></tr>`;
+        });
+        return; // Stop here if matched
+      }
+
+      // 2. Fallback to physical calculation
       CARRIERS.forEach(c => {
         const vw = getVW(wd, ln, ht, c); const pkg = Math.max(w, vw); const pr = getRate(c, pkg, zi);
         tbody.innerHTML += `<tr><td>${ID_MAP[c]}</td><td class="r">${pkg.toFixed(2)} kg</td><td class="r" style="font-weight:800; color:var(--accent);">${pr?pr.toLocaleString()+' ฿':'—'}</td></tr>`;
