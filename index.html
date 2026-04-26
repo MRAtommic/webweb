@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>คำนวณค่าจัดส่ง — Shipping Calculator</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --s1: #ffffff;
+      --s2: #f1f5f9;
+      --border: #e2e8f0;
+      --accent: #2563eb;
+      --spx: #4f46e5;
+      --flash: #ea580c;
+      --kerry: #16a34a;
+      --jt: #dc2626;
+      --aramex: #d97706;
+      --text: #0f172a;
+      --muted: #64748b;
+      --warn: #ef4444;
+      --gen: #059669;
+      --radius: 12px;
+      --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --card-hover-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .dark {
+      --bg: #0b0f1a;
+      --s1: #161d2f;
+      --s2: #1e293b;
+      --border: rgba(255, 255, 255, 0.1);
+      --accent: #3b82f6;
+      --spx: #818cf8;
+      --flash: #fb923c;
+      --kerry: #4ade80;
+      --jt: #f87171;
+      --aramex: #fbbf24;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --warn: #f87171;
+      --gen: #34d399;
+      --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --card-hover-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Sarabun", sans-serif;
+      min-height: 100vh;
+      padding: 20px 10px 80px;
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    @media (min-width: 768px) {
+      body { padding: 40px 20px 80px; }
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(37, 99, 235, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+    }
+
+    .wrap { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+
+    header { text-align: center; padding: 40px 0 30px; position: relative; }
+    .theme-toggle {
+      position: absolute; top: 20px; right: 0;
+      background: var(--s1); border: 1px solid var(--border); color: var(--text);
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s; box-shadow: var(--card-shadow);
+    }
+    .theme-toggle:hover { transform: rotate(15deg) scale(1.1); background: var(--s2); }
+    .theme-toggle svg { width: 20px; height: 20px; }
+    .icon-sun { display: none; }
+    .dark .icon-sun { display: block; }
+    .dark .icon-moon { display: none; }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--s2); border: 1px solid var(--border); border-radius: 20px;
+      padding: 6px 16px; font-size: 0.75rem; font-family: "IBM Plex Mono", monospace;
+      letter-spacing: 1.5px; color: var(--muted); margin-bottom: 12px;
+    }
+    .eyebrow span { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); } }
+
+    h1 { font-size: 1.8rem; font-weight: 800; color: var(--text); letter-spacing: -1px; margin-bottom: 8px; line-height: 1.2; }
+    @media (min-width: 768px) {
+      h1 { font-size: 2.8rem; letter-spacing: -1.5px; }
+    }
+    h1 em { color: var(--accent); font-style: normal; }
+    header p { color: var(--muted); font-size: 0.9rem; max-width: 600px; margin: 0 auto 24px; padding: 0 10px; }
+    @media (min-width: 768px) {
+      header p { font-size: 1rem; }
+    }
+
+    .carriers-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+    .cbadge {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 700;
+      border: 1px solid var(--border); background: var(--s1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .cbadge:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .cbadge.spx { color: var(--spx); background: rgba(129, 140, 248, 0.1); border-color: rgba(129, 140, 248, 0.2); }
+    .cbadge.flash { color: var(--flash); background: rgba(251, 146, 60, 0.1); border-color: rgba(251, 146, 60, 0.2); }
+    .cbadge.kerry { color: var(--kerry); background: rgba(74, 222, 128, 0.1); border-color: rgba(74, 222, 128, 0.2); }
+    .cbadge.jt { color: var(--jt); background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.2); }
+    .cbadge.aramex { color: var(--aramex); background: rgba(251, 191, 36, 0.1); border-color: rgba(251, 191, 36, 0.2); }
+
+    .main-tabs { 
+      display: flex; gap: 8px; margin-bottom: 24px; padding: 4px; 
+      background: var(--s2); border-radius: 16px; width: 100%; 
+      max-width: 800px; margin-left: auto; margin-right: auto;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .main-tabs::-webkit-scrollbar { display: none; }
+    .main-tab {
+      padding: 10px 20px; border: none; background: transparent; border-radius: 12px;
+      color: var(--muted); cursor: pointer; font-weight: 700; font-family: inherit;
+      transition: all 0.3s; font-size: 0.85rem; display: flex; align-items: center; gap: 6px;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    @media (min-width: 768px) {
+      .main-tabs { gap: 12px; padding: 6px; width: fit-content; }
+      .main-tab { padding: 12px 24px; font-size: 0.95rem; gap: 8px; }
+    }
+    .main-tab.active { background: var(--s1); color: var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid var(--border); }
+    .main-tab:hover:not(.active) { color: var(--text); background: rgba(255,255,255,0.05); }
+
+    .view { display: none; animation: fadeIn 0.4s ease-out; }
+    .view.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .card {
+      background: var(--s1); border: 1px solid var(--border); border-radius: 20px;
+      padding: 20px; box-shadow: var(--card-shadow); margin-bottom: 16px;
+      transition: all 0.3s;
+    }
+    @media (min-width: 768px) {
+      .card { padding: 32px; margin-bottom: 24px; }
+    }
+    .card:hover { box-shadow: var(--card-hover-shadow); }
+    .card-title {
+      font-size: 0.75rem; font-family: "IBM Plex Mono", monospace; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .card-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
+
+    .top-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+    @media (max-width: 900px) { .top-grid { grid-template-columns: 1fr; } }
+
+    .fg { margin-bottom: 20px; }
+    label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    select, input {
+      width: 100%; background: var(--s2); border: 2px solid transparent; border-radius: 12px;
+      color: var(--text); font-family: inherit; font-size: 1rem; padding: 12px 16px;
+      outline: none; transition: all 0.2s;
+    }
+    select:focus, input:focus { border-color: var(--accent); background: var(--s1); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
+
+    .dim-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    .results { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
+    @media (min-width: 480px) { .results { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 768px) { .results { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+    @media (min-width: 1100px) { .results { grid-template-columns: repeat(5, 1fr); } }
+
+    .rc {
+      background: var(--s1); border: 1px solid var(--border); border-radius: 20px;
+      padding: 24px; text-align: center; transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .rc::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--muted); }
+    .rc.spx::before { background: var(--spx); }
+    .rc.flash::before { background: var(--flash); }
+    .rc.kerry::before { background: var(--kerry); }
+    .rc.jt::before { background: var(--jt); }
+    .rc.aramex::before { background: var(--aramex); }
+
+    .rc.best { border-color: var(--accent); transform: scale(1.05); z-index: 2; box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15); }
+    .rc.best::after {
+      content: "คุ้มที่สุด"; position: absolute; top: 12px; right: -25px;
+      background: var(--accent); color: white; font-size: 0.65rem; font-weight: 800;
+      padding: 4px 30px; transform: rotate(45deg);
+    }
+
+    .rc-label { font-size: 0.7rem; font-family: "IBM Plex Mono", monospace; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .rc-price { font-size: 2.2rem; font-weight: 800; font-family: "IBM Plex Mono", monospace; color: var(--text); line-height: 1; }
+    .rc-price small { font-size: 1rem; font-weight: 400; color: var(--muted); margin-left: 4px; }
+    .rc-sub { font-size: 0.8rem; color: var(--muted); margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border); }
+
+    .st-wrap { border-radius: 16px; border: 1px solid var(--border); overflow: hidden; background: var(--s1); }
+    .st { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    .st th { background: #1e293b; color: #f8fafc; padding: 16px 20px; text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+    .dark .st th { background: #0f172a; }
+    .st td { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+    .st tr:last-child td { border-bottom: none; }
+    .st tr:hover td { background: var(--s2); }
+
+    .highlight-collect { background: linear-gradient(135deg, rgba(234, 88, 12, 0.08), rgba(249, 115, 22, 0.04)) !important; color: #ea580c !important; font-weight: 700; border-left: 4px solid #ea580c !important; }
+    .best-cell { background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.04)) !important; color: #16a34a !important; font-weight: 700; }
+    .best-badge { background: #22c55e; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 900; margin-left: 8px; }
+
+    .summary-header-row { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 20px; gap: 12px; }
+    @media (min-width: 600px) {
+      .summary-header-row { flex-direction: row; justify-content: space-between; align-items: center; gap: 20px; }
+    }
+    .pagination-container { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 24px; flex-wrap: wrap; }
+    @media (min-width: 480px) { .pagination-container { gap: 16px; } }
+    .page-btn { 
+      padding: 10px 24px; border-radius: 12px; border: 1px solid var(--border); 
+      background: var(--s1); color: var(--text); cursor: pointer; font-weight: 700; 
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .page-btn:hover:not(:disabled) { 
+      background: var(--accent); color: white; border-color: var(--accent);
+      transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+    }
+    .page-btn:disabled { opacity: 0.3; cursor: not-allowed; filter: grayscale(1); }
+
+    .info-rows { background: var(--s2); border-radius: 12px; padding: 16px; margin-top: 20px; }
+    .ir { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px; }
+    .ir:last-child { margin-bottom: 0; }
+    .ir span:first-child { color: var(--muted); }
+    .ir .v { font-weight: 700; color: var(--text); }
+
+    .export-btn { background: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
+    .export-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+    input.rate-input { width: 70px !important; text-align: right; padding: 4px 8px; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <button class="theme-toggle" onclick="toggleTheme()" title="สลับโหมด มืด/สว่าง">
+        <svg class="icon-moon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+      <div class="eyebrow"><span></span>DUIT LOGISTICS SYSTEM — TH</div>
+      <h1>คำนวณ<em>ค่าจัดส่ง</em>สินค้า</h1>
+      <p>เปรียบเทียบอัตราค่าส่งแบบเรียลไทม์ คำนวณ Volumetric Weight อัตโนมัติ พร้อมฐานข้อมูล Guideline สำหรับแบรนด์ Duit</p>
+      <div class="carriers-row">
+        <div class="cbadge spx">SPX Express</div>
+        <div class="cbadge flash">Flash Express</div>
+        <div class="cbadge kerry">Kerry Express</div>
+        <div class="cbadge jt">J&T Express</div>
+        <div class="cbadge aramex">Aramex International</div>
+      </div>
+    </header>
+
+    <div class="main-tabs">
+      <button class="main-tab active" onclick="switchMainTab('calc', this)">คำนวณรายชิ้น</button>
+      <button class="main-tab" onclick="switchMainTab('cart', this)">จัดกลุ่มลงกล่อง 📦</button>
+      <button class="main-tab" onclick="switchMainTab('products', this)">จัดการสินค้า 📋</button>
+      <button class="main-tab" onclick="switchMainTab('rates', this)">ตั้งค่าค่าส่ง ⚙️</button>
+      <button class="main-tab" onclick="switchMainTab('excel', this)">ฐานข้อมูล Excel 📊</button>
+    </div>
+
+    <!-- Calc View -->
+    <div id="view-calc" class="view active">
+      <div class="top-grid">
+        <div class="card">
+          <div class="card-title">เลือกสินค้าจากฐานข้อมูล</div>
+          <div class="fg"><label>รายการสินค้า</label><select id="pSel" onchange="onPick()"><option value="">— เลือกสินค้า —</option></select></div>
+          <div class="fg"><label>ปลายทาง</label><select id="zone" onchange="onPick()"><option value="metro">กรุงเทพฯ / ปริมณฑล</option><option value="province" selected>ต่างจังหวัด (ทั่วไป)</option><option value="remote">พื้นที่ห่างไกล / เกาะ</option></select></div>
+          <div id="pInfo" style="display:none" class="info-rows">
+            <div class="ir"><span>น้ำหนักจริง</span><span class="v" id="iW">—</span></div>
+            <div class="ir"><span>ขนาด ก×ย×ส</span><span class="v" id="iD">—</span></div>
+            <div class="ir"><span>Volumetric Weight</span><span class="v" id="iV">—</span></div>
+            <div class="ir"><span>คิดราคาที่</span><span class="v" id="iC">—</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">หรือกรอกข้อมูลเอง</div>
+          <div class="fg"><label>น้ำหนัก (kg)</label><input type="number" id="mW" placeholder="เช่น 1.5" step="0.1" oninput="onManual()"></div>
+          <div class="dim-row">
+            <div class="fg"><label>กว้าง (cm)</label><input type="number" id="mWd" placeholder="ก" oninput="onManual()"></div>
+            <div class="fg"><label>ยาว (cm)</label><input type="number" id="mLn" placeholder="ย" oninput="onManual()"></div>
+            <div class="fg"><label>สูง (cm)</label><input type="number" id="mHt" placeholder="ส" oninput="onManual()"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="excelResult" class="card" style="display:none; border: 2px solid var(--accent); background: rgba(37,99,235,0.03); padding: 24px;">
+        <div class="card-title" style="color: var(--accent); margin-bottom: 16px;">📌 ข้อมูลแนะนำจาก Guideline</div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:200px;">
+            <div id="egProductName" style="font-size:1.5rem; font-weight:800; margin-bottom:12px; color:var(--text); line-height:1.2;">—</div>
+            <div id="egCarrier" class="cbadge">—</div>
+          </div>
+          <div style="text-align:right; flex-grow:0;">
+            <div id="egPrice" style="font-size:3.2rem; font-weight:800; font-family:'IBM Plex Mono'; color:var(--accent); line-height:1;">0<small style="font-size:1.4rem; margin-left:4px;">฿</small></div>
+            <div class="info-rows" style="margin-top:16px; background:transparent; padding:0; align-items:flex-end;">
+              <div class="ir" style="gap:20px;"><span>ควรเก็บลูกค้า</span><span class="v" id="egTarget" style="font-size:1.1rem; color:var(--accent);">—</span></div>
+              <div class="ir" style="gap:20px;"><span>จำนวนในชุด</span><span class="v" id="egQty">—</span></div>
+              <div class="ir" style="gap:20px;"><span>ประวัติการสั่ง</span><span class="v" id="egCount">—</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="results" id="carrierResults">
+        <div class="rc spx" id="cSPX"><div class="rc-label">SPX Express</div><div class="rc-price" id="pSPX">—<small> ฿</small></div><div class="rc-sub" id="dSPX">เลือกสินค้า</div></div>
+        <div class="rc flash" id="cFlash"><div class="rc-label">Flash Express</div><div class="rc-price" id="pFlash">—<small> ฿</small></div><div class="rc-sub" id="dFlash">เลือกสินค้า</div></div>
+        <div class="rc kerry" id="cKerry"><div class="rc-label">Kerry Express</div><div class="rc-price" id="pKerry">—<small> ฿</small></div><div class="rc-sub" id="dKerry">เลือกสินค้า</div></div>
+        <div class="rc jt" id="cJT"><div class="rc-label">J&T Express</div><div class="rc-price" id="pJT">—<small> ฿</small></div><div class="rc-sub" id="dJT">เลือกสินค้า</div></div>
+        <div class="rc aramex" id="cAramex"><div class="rc-label">Aramex</div><div class="rc-price" id="pAramex">—<small> ฿</small></div><div class="rc-sub" id="dAramex">ไม่รองรับในไทย</div></div>
+      </div>
+
+      <div class="card">
+        <div class="summary-header-row">
+          <div class="card-title" style="margin-bottom:0;">Guideline สรุปค่าจัดส่ง – แบรนด์ Duit</div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <input type="text" id="sSearch" onkeyup="renderSummary()" placeholder="ค้นหาชื่อสินค้า..." style="width:250px;">
+            <button class="export-btn" onclick="addCustomCol()">+ เพิ่มคอลัมน์เอง</button>
+          </div>
+        </div>
+        <div class="st-wrap">
+          <table class="st"><thead id="sThead"><tr id="sTheadRow"></tr></thead><tbody id="sTbody"></tbody></table>
+        </div>
+        <div id="sPagination" class="pagination-container"></div>
+      </div>
+    </div>
+
+    <!-- Cart View -->
+    <div id="view-cart" class="view">
+      <div class="card">
+        <div class="card-title">จัดกลุ่มสินค้าลงกล่อง 📦</div>
+        <div style="display:flex; gap:16px; margin-bottom:24px; align-items:flex-end; flex-wrap:wrap;">
+          <div style="flex:1; min-width:250px;"><label>เลือกสินค้า</label><select id="cartProductSel"></select></div>
+          <div style="width:100px;"><label>จำนวน</label><input type="number" id="cartProductQty" value="1" min="1"></div>
+          <button class="export-btn" onclick="addToCart()" style="height:48px;">+ หยิบลงกล่อง</button>
+        </div>
+        <div class="st-wrap" style="margin-bottom:32px;">
+          <table class="st"><thead><tr><th>สินค้า</th><th class="r">จำนวน</th><th class="r">น้ำหนักรวม</th><th class="c">จัดการ</th></tr></thead><tbody id="cartTbody"></tbody></table>
+        </div>
+        <div style="background:var(--s2); padding:32px; border-radius:20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3 style="margin:0;">สรุปขนาดกล่องรวม</h3>
+            <select id="cartZone" style="width:200px;" onchange="renderCartCalc()"></select>
+          </div>
+          <div class="dim-row">
+            <div><label>น้ำหนักรวม (kg)</label><input type="number" id="cartTotalWeight" step="0.1" oninput="renderCartCalc()"></div>
+            <div><label>กว้าง (cm)</label><input type="number" id="cartTotalWd" oninput="renderCartCalc()"></div>
+            <div><label>ยาว (cm)</label><input type="number" id="cartTotalLn" oninput="renderCartCalc()"></div>
+            <div><label>สูง (cm)</label><input type="number" id="cartTotalHt" oninput="renderCartCalc()"></div>
+          </div>
+          <button class="export-btn" style="width:100%; margin-top:24px; font-size:1.1rem; justify-content:center;" onclick="renderCartCalc()">คำนวณค่าส่งทั้งกล่อง</button>
+        </div>
+        <div id="cartCalcResult" style="margin-top:32px; display:none;">
+          <table class="st"><thead><tr><th>ขนส่ง</th><th class="r">นน.ที่คิดราคา</th><th class="r">ค่าส่งประมาณการ</th></tr></thead><tbody id="cartCalcTbody"></tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products View -->
+    <div id="view-products" class="view">
+      <div class="card">
+        <div class="card-title">จัดการรายการสินค้า 📋</div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-bottom:32px; background:var(--s2); padding:24px; border-radius:20px;">
+          <div class="fg"><label>ชื่อสินค้า</label><input type="text" id="pName" placeholder="เช่น กระเป๋า Duit"></div>
+          <div class="fg"><label>น้ำหนัก (kg)</label><input type="number" id="pWeight" step="0.1"></div>
+          <div class="fg"><label>ขนาด กว้าง (cm)</label><input type="number" id="pW"></div>
+          <div class="fg"><label>ขนาด ยาว (cm)</label><input type="number" id="pL"></div>
+          <div class="fg"><label>ขนาด สูง (cm)</label><input type="number" id="pH"></div>
+          <div class="fg" style="display:flex; align-items:flex-end;"><button class="export-btn" style="width:100%;" onclick="saveProduct()">เพิ่มสินค้า</button></div>
+        </div>
+        <div class="st-wrap">
+          <table class="st"><thead><tr><th>ชื่อสินค้า</th><th class="r">น้ำหนัก (kg)</th><th class="r">ขนาด ก×ย×ส</th><th class="c">จัดการ</th></tr></thead><tbody id="manageProdTbody"></tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rates View -->
+    <div id="view-rates" class="view">
+      <div class="card">
+        <div class="card-title">ตั้งค่าอัตราค่าจัดส่ง ⚙️</div>
+        <div class="tabs">
+          <button class="tab active" onclick="switchTab('spx', this)">SPX</button>
+          <button class="tab" onclick="switchTab('flash', this)">Flash</button>
+          <button class="tab" onclick="switchTab('kerry', this)">Kerry</button>
+          <button class="tab" onclick="switchTab('jt', this)">J&T</button>
+          <button class="tab" onclick="switchTab('aramex', this)">Aramex</button>
+        </div>
+        <div id="tc-spx" class="tc active"></div>
+        <div id="tc-flash" class="tc"></div>
+        <div id="tc-kerry" class="tc"></div>
+        <div id="tc-jt" class="tc"></div>
+        <div id="tc-aramex" class="tc"></div>
+        <div style="margin-top:24px; display:flex; justify-content:center;"><button class="page-btn" style="color:var(--warn); border-color:var(--warn);" onclick="resetRates()">รีเซ็ตค่าเริ่มต้นทั้งหมด</button></div>
+      </div>
+    </div>
+
+    <!-- Excel View -->
+    <div id="view-excel" class="view">
+      <div class="card">
+        <div class="card-title">ฐานข้อมูล Excel 📊</div>
+        <div class="summary-header-row">
+          <div style="display:flex; gap:12px;">
+            <label class="export-btn" style="margin:0;">
+              อัปโหลดไฟล์ Excel
+              <input type="file" id="excelUpload" onchange="handleExcelUpload(event)" style="display:none;">
+            </label>
+            <button class="page-btn" onclick="addExcelRow()">+ เพิ่มแถว</button>
+            <button class="page-btn" onclick="addExcelCol()">+ เพิ่มคอลัมน์</button>
+          </div>
+          <div style="display:flex; gap:12px;">
+            <input type="text" id="excelSearch" onkeyup="renderExcelTable()" placeholder="ค้นหาในตาราง..." style="width:250px;">
+            <button class="page-btn" onclick="exportExcelDB()">Export XLSX</button>
+            <button class="page-btn" style="color:var(--warn);" onclick="resetExcelData()">ล้างข้อมูล</button>
+          </div>
+        </div>
+        <div class="st-wrap"><table class="st" id="excelTable"><thead></thead><tbody id="excelTbody"></tbody></table></div>
+        <div id="excelPagination" class="pagination-container"></div>
+      </div>
+    </div>
+
+  </div> <!-- /wrap -->
+
+  <script>
+    const CARRIERS = ["spx", "flash", "kerry", "jt", "aramex"];
+    const ID_MAP = { spx: "SPX", flash: "Flash", kerry: "Kerry", jt: "JT", aramex: "Aramex" };
+    const VOL_DIV = { spx: 5000, flash: 6000, kerry: 5000, jt: 5000, aramex: 5000 };
+    const PAGE_SIZE = 20;
+    let currentSummaryPage = 1;
+    let currentExcelPage = 1;
+
+    const DEFAULT_PRODUCTS = [
+      { name: "all day board", wKg: 1.5, wid: 40, len: 68, hei: 13 },
+      { name: "standing board", wKg: 2.5, wid: 31, len: 32, hei: 66 },
+      { name: "peanut board", wKg: 6.2, wid: 77, len: 37, hei: 32 }
+    ];
+
+    const DEFAULT_RATES = {
+      spx: [[1, 25, 35, 55], [2, 35, 50, 75], [3, 45, 65, 95], [5, 65, 90, 130], [7, 85, 115, 165], [10, 110, 150, 210], [15, 155, 210, 290], [20, 200, 270, 370]],
+      flash: [[1, 28, 38, 60], [2, 38, 55, 80], [3, 50, 70, 100], [5, 70, 98, 138], [7, 90, 125, 175], [10, 120, 165, 225], [15, 170, 230, 310], [20, 220, 295, 395], [999, 300, 400, 550]],
+      kerry: [[1, 35, 45, 65], [2, 45, 60, 85], [3, 55, 75, 105], [5, 75, 105, 145], [7, 100, 135, 185], [10, 130, 175, 240], [15, 180, 245, 330], [20, 230, 310, 420], [30, 320, 430, 580]],
+      jt: [[1, 28, 38, 58], [2, 38, 52, 78], [3, 48, 68, 98], [5, 68, 95, 135], [7, 88, 120, 170], [10, 115, 158, 218], [15, 160, 220, 300], [20, 205, 280, 385], [30, 285, 390, 535]],
+      aramex: [[1, 40, 55, 80], [2, 55, 75, 105], [3, 70, 95, 130], [5, 95, 130, 175], [10, 165, 215, 285], [20, 295, 385, 505]]
+    };
+
+    const DEFAULT_EXCEL_DATA = {
+      activeSheet: 'ตารางอ้างอิง',
+      sheets: { 'ตารางอ้างอิง': [
+        ["ชุดสินค้า", "จำนวนในชุด", "จำนวนครั้งที่สั่ง", "ค่าส่งที่ควรเก็บ", "💚 กรุงเทพ", "🟠 ต่างจังหวัด", "SPX", "Flash", "Kerry", "J&T"],
+        ["Soft Brush", 1, 7, 50, 30, 50, 25, 28, 35, 28],
+        ["ScoopW", 1, 6, 50, 30, 50, 25, 28, 35, 28]
+      ]}
+    };
+
+    let PRODUCTS = JSON.parse(localStorage.getItem("shipping_products")) || DEFAULT_PRODUCTS;
+    let RATES = JSON.parse(localStorage.getItem("shipping_rates")) || DEFAULT_RATES;
+    let ZONES = JSON.parse(localStorage.getItem("shipping_zones")) || ["กรุงเทพฯ/ปริมณฑล", "ต่างจังหวัด", "ห่างไกล/เกาะ"];
+    let CART = [];
+    let CUSTOM_COLS = JSON.parse(localStorage.getItem('shipping_custom_cols')) || [];
+    let CUSTOM_DATA = JSON.parse(localStorage.getItem('shipping_custom_data')) || {};
+
+    function toggleTheme() { document.documentElement.classList.toggle("dark"); localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light"); }
+    if(localStorage.getItem("theme")==="dark") document.documentElement.classList.add("dark");
+
+    function switchMainTab(n, b) {
+      document.querySelectorAll(".main-tab").forEach(t=>t.classList.remove("active"));
+      document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+      b.classList.add("active"); document.getElementById("view-"+n).classList.add("active");
+      if(n==='rates') renderRateTables(); if(n==='excel') renderExcelTable(); if(n==='calc') renderSummary();
+    }
+    function switchTab(n, b) {
+      document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+      document.querySelectorAll(".tc").forEach(c=>c.classList.remove("active"));
+      b.classList.add("active"); document.getElementById("tc-"+n).classList.add("active");
+    }
+
+    function getVW(w, l, h, c) { return (w * l * h) / (VOL_DIV[c] || 5000); }
+    function getRate(c, kg, zi) { 
+      if(!RATES[c]) return null;
+      for(let r of RATES[c]) { if(kg <= r[0]) return r[zi+1]; }
+      return null;
+    }
+
+    function rebuildProductDropdown() {
+      const pSel = document.getElementById("pSel");
+      const cSel = document.getElementById("cartProductSel");
+      let data = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA;
+      let sheet = data.sheets[data.activeSheet] || [];
+      let opts = '<option value="">— เลือกสินค้า —</option>';
+      sheet.slice(1).forEach(r => { if(r[0]) opts += `<option value="${r[0]}">${r[0]}</option>`; });
+      if(pSel) pSel.innerHTML = opts;
+      if(cSel) cSel.innerHTML = '<option value="">— เลือกสินค้า —</option>' + PRODUCTS.map((p, i) => `<option value="${i}">${p.name}</option>`).join('');
+    }
+
+    function onPick() {
+      const val = document.getElementById("pSel").value; if(!val) return resetCalcUI();
+      let data = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA;
+      const sheet = data.sheets[data.activeSheet]; if(!sheet) return;
+      const headers = sheet[0]; const row = sheet.find(r => r[0] === val); if(!row) return;
+      
+      const zi = document.getElementById("zone").selectedIndex;
+      // More specific header detection to avoid matching index 0 (Product Name)
+      const collectIdx = headers.findIndex((h, i) => i > 0 && h.includes('ควรเก็บ'));
+      const qtyIdx = headers.findIndex((h, i) => i > 0 && h.includes('จำนวน') && h.includes('ชุด'));
+      const countIdx = headers.findIndex((h, i) => i > 0 && h.includes('ครั้ง'));
+      
+      // Find prices based on zone (BKK is usually index 4, Province is 5 in default structure)
+      // or look for zone-specific keywords
+      let bkkIdx = headers.findIndex((h, i) => i > 0 && (h.includes('กรุงเทพ') || h.includes('BKK')));
+      let provIdx = headers.findIndex((h, i) => i > 0 && (h.includes('ต่างจังหวัด') || h.includes('Prov')));
+      let remoteIdx = headers.findIndex((h, i) => i > 0 && (h.includes('ห่างไกล') || h.includes('Remote')));
+      
+      // Fallback to default indices if keywords not found
+      if(bkkIdx === -1) bkkIdx = 4;
+      if(provIdx === -1) provIdx = 5;
+      if(remoteIdx === -1) remoteIdx = 6;
+      
+      const zonePriceIdx = [bkkIdx, provIdx, remoteIdx][zi];
+
+      const bestCarrier = CARRIERS.reduce((a, b) => {
+        const idxA = headers.findIndex(h => h.toLowerCase().includes(a));
+        const idxB = headers.findIndex(h => h.toLowerCase().includes(b));
+        const valA = idxA !== -1 ? parseFloat(row[idxA]) || Infinity : Infinity;
+        const valB = idxB !== -1 ? parseFloat(row[idxB]) || Infinity : Infinity;
+        return (valA <= valB) ? a : b;
+      }, "spx");
+
+      document.getElementById("excelResult").style.display = "block";
+      document.getElementById("egProductName").textContent = val;
+      document.getElementById("egCarrier").textContent = (ID_MAP[bestCarrier] || "Carrier") + " Express";
+      document.getElementById("egCarrier").className = "cbadge " + bestCarrier;
+      document.getElementById("egPrice").innerHTML = (row[zonePriceIdx] || "—") + "<small style='font-size:1.4rem; margin-left:4px;'>฿</small>";
+      document.getElementById("egTarget").textContent = collectIdx!==-1 ? row[collectIdx] : "—";
+      document.getElementById("egQty").textContent = qtyIdx!==-1 ? row[qtyIdx] : "—";
+      document.getElementById("egCount").textContent = countIdx!==-1 ? row[countIdx] : "—";
+      
+      const prod = PRODUCTS.find(p => p.name === val);
+      if(prod) {
+        document.getElementById("pInfo").style.display = "block";
+        document.getElementById("iW").textContent = prod.wKg + " kg";
+        document.getElementById("iD").textContent = `${prod.wid}x${prod.len}x${prod.hei} cm`;
+        const vw = getVW(prod.wid, prod.len, prod.hei, 'spx');
+        document.getElementById("iV").textContent = vw.toFixed(2) + " kg";
+        document.getElementById("iC").textContent = Math.max(prod.wKg, vw).toFixed(2) + " kg";
+      }
+
+      CARRIERS.forEach(c => {
+        const hIdx = headers.findIndex(h => h.toLowerCase().includes(c));
+        const pEl = document.getElementById("p"+ID_MAP[c]);
+        const dEl = document.getElementById("d"+ID_MAP[c]);
+        const card = document.getElementById("c"+ID_MAP[c]); card.classList.remove("best");
+        if(hIdx!==-1) { pEl.innerHTML = (row[hIdx] || "—") + "<small> ฿</small>"; dEl.textContent = "จาก Guideline"; }
+        else { pEl.textContent = "—"; dEl.textContent = "ไม่มีข้อมูล"; }
+      });
+    }
+
+    function onManual() {
+      const w = parseFloat(document.getElementById("mW").value)||0;
+      const wd = parseFloat(document.getElementById("mWd").value)||0;
+      const ln = parseFloat(document.getElementById("mLn").value)||0;
+      const ht = parseFloat(document.getElementById("mHt").value)||0;
+      const zi = document.getElementById("zone").selectedIndex;
+      if(!w || !wd || !ln || !ht) return;
+      
+      document.getElementById("pSel").value = "";
+      document.getElementById("pInfo").style.display = "none";
+      document.getElementById("excelResult").style.display = "none";
+      
+      const results = CARRIERS.map(c => {
+        const vw = getVW(wd, ln, ht, c); const pkg = Math.max(w, vw); const pr = getRate(c, pkg, zi);
+        return { c, pr, pkg };
+      });
+      
+      const minP = Math.min(...results.filter(r => r.pr!==null).map(r => r.pr));
+      results.forEach(r => {
+        const s = ID_MAP[r.c];
+        const pEl = document.getElementById("p"+s); const dEl = document.getElementById("d"+s);
+        const card = document.getElementById("c"+s);
+        if(r.pr === null) { pEl.textContent = "เกินขีดจำกัด"; dEl.textContent = "ไม่รองรับ"; card.classList.remove("best"); }
+        else { 
+          pEl.innerHTML = r.pr.toLocaleString() + "<small> ฿</small>"; dEl.textContent = `คิดจาก ${r.pkg.toFixed(2)} kg`; 
+          if(r.pr === minP && r.pr > 0) card.classList.add("best"); else card.classList.remove("best");
+        }
+      });
+    }
+
+    function resetCalcUI() {
+      document.getElementById("excelResult").style.display = "none";
+      document.getElementById("pInfo").style.display = "none";
+      CARRIERS.forEach(c => { 
+        document.getElementById("p"+ID_MAP[c]).innerHTML = "—<small> ฿</small>"; 
+        document.getElementById("d"+ID_MAP[c]).textContent = "เลือกสินค้า";
+        document.getElementById("c"+ID_MAP[c]).classList.remove("best");
+      });
+    }
+
+    function addToCart() {
+      const idx = document.getElementById("cartProductSel").value; if(idx==="") return;
+      const p = PRODUCTS[idx]; const qty = parseInt(document.getElementById("cartProductQty").value)||1;
+      CART.push({...p, qty}); renderCart();
+    }
+
+    function renderCart() {
+      const tbody = document.getElementById("cartTbody"); tbody.innerHTML = "";
+      let tw=0, mwd=0, mln=0, sht=0;
+      CART.forEach((item, i) => {
+        const rw = item.wKg * item.qty; tw+=rw; mwd=Math.max(mwd, item.wid); mln=Math.max(mln, item.len); sht+=item.hei * item.qty;
+        tbody.innerHTML += `<tr><td>${item.name}</td><td class="r">${item.qty}</td><td class="r">${rw.toFixed(2)} kg</td><td class="c"><button onclick="CART.splice(${i},1);renderCart()" style="border:none; background:none; color:var(--warn); cursor:pointer; font-size:1.2rem;">×</button></td></tr>`;
+      });
+      document.getElementById("cartTotalWeight").value = tw.toFixed(2);
+      document.getElementById("cartTotalWd").value = mwd;
+      document.getElementById("cartTotalLn").value = mln;
+      document.getElementById("cartTotalHt").value = sht;
+      renderCartCalc();
+    }
+
+    function renderCartCalc() {
+      const w = parseFloat(document.getElementById("cartTotalWeight").value)||0;
+      const wd = parseFloat(document.getElementById("cartTotalWd").value)||0;
+      const ln = parseFloat(document.getElementById("cartTotalLn").value)||0;
+      const ht = parseFloat(document.getElementById("cartTotalHt").value)||0;
+      const zi = document.getElementById("cartZone").selectedIndex;
+      if(w<=0) return;
+      const res = document.getElementById("cartCalcResult"); res.style.display = "block";
+      const tbody = document.getElementById("cartCalcTbody"); tbody.innerHTML = "";
+      CARRIERS.forEach(c => {
+        const vw = getVW(wd, ln, ht, c); const pkg = Math.max(w, vw); const pr = getRate(c, pkg, zi);
+        tbody.innerHTML += `<tr><td>${ID_MAP[c]}</td><td class="r">${pkg.toFixed(2)} kg</td><td class="r" style="font-weight:800; color:var(--accent);">${pr?pr.toLocaleString()+' ฿':'—'}</td></tr>`;
+      });
+    }
+
+    function renderSummary() {
+      const tbody = document.getElementById("sTbody"); const thead = document.getElementById("sTheadRow"); if(!tbody || !thead) return;
+      let data = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA;
+      const sheet = data.sheets[data.activeSheet]; if(!sheet) return;
+      const hs = sheet[0];
+      
+      const collectIdx = hs.findIndex(h => h.includes('ควรเก็บ'));
+      const carriersIdx = hs.map((h, i) => CARRIERS.some(c => h.toLowerCase().includes(c)) ? i : -1).filter(i => i !== -1);
+      const displayIdx = [0, 1, ...carriersIdx, collectIdx].filter(i => i !== -1);
+
+      thead.innerHTML = "<th>#</th>" + displayIdx.map(i => `<th class="${i===collectIdx?'highlight-collect':''}">${hs[i]}</th>`).join("") + CUSTOM_COLS.map((c, i) => `<th>${c} <button onclick="deleteCustomCol(${i})" style="border:none;background:none;color:var(--warn);cursor:pointer;">×</button></th>`).join("");
+      
+      const q = (document.getElementById("sSearch")?.value || "").toLowerCase();
+      const filtered = sheet.slice(1).filter(r => !q || r.join(' ').toLowerCase().includes(q));
+      const paged = filtered.slice((currentSummaryPage-1)*PAGE_SIZE, currentSummaryPage*PAGE_SIZE);
+
+      tbody.innerHTML = paged.map((row, idx) => {
+        const originalRi = sheet.findIndex(r => r === row);
+        let minPrice = Math.min(...carriersIdx.map(ci => parseFloat(row[ci]) || Infinity).filter(p => p > 0));
+        return `<tr><td class="idx">${((currentSummaryPage-1)*PAGE_SIZE) + idx + 1}</td>` + displayIdx.map(ci => {
+          const v = row[ci]; const p = parseFloat(v);
+          const isBest = carriersIdx.includes(ci) && p === minPrice && p > 0;
+          return `<td class="${isBest?'best':''} ${ci===collectIdx?'highlight-collect':''}">${v}</td>`;
+        }).join("") + CUSTOM_COLS.map((_, ci) => `<td><input value="${CUSTOM_DATA[`${originalRi}_${ci}`]||''}" onchange="saveCustomData(${originalRi},${ci},this.value)" class="rate-input" style="width:100%!important;border:none;background:transparent;"></td>`).join("") + "</tr>";
+      }).join('');
+      renderPagination("sPagination", filtered.length, currentSummaryPage, (p)=> { currentSummaryPage=p; renderSummary(); });
+    }
+
+    function saveProduct() {
+      const p = {
+        name: document.getElementById("pName").value,
+        wKg: parseFloat(document.getElementById("pWeight").value)||0,
+        wid: parseFloat(document.getElementById("pW").value)||0,
+        len: parseFloat(document.getElementById("pL").value)||0,
+        hei: parseFloat(document.getElementById("pH").value)||0
+      };
+      if(!p.name) return alert("ระบุชื่อสินค้า");
+      PRODUCTS.push(p); localStorage.setItem("shipping_products", JSON.stringify(PRODUCTS)); renderManageProducts();
+      ['pName','pWeight','pW','pL','pH'].forEach(id=>document.getElementById(id).value="");
+    }
+    function renderManageProducts() {
+      const tbody = document.getElementById("manageProdTbody"); tbody.innerHTML = PRODUCTS.map((p, i) => `<tr><td>${p.name}</td><td class="r">${p.wKg}</td><td class="r">${p.wid}x${p.len}x${p.hei}</td><td class="c"><button onclick="PRODUCTS.splice(${i},1);renderManageProducts()" style="border:none;background:none;color:var(--warn);cursor:pointer;">ลบ</button></td></tr>`).join("");
+      rebuildProductDropdown();
+    }
+
+    function renderRateTables() {
+      CARRIERS.forEach(c => {
+        const div = document.getElementById("tc-"+c);
+        div.innerHTML = `<div class="st-wrap"><table class="st"><thead><tr><th>น้ำหนักสูงสุด (kg)</th>` + ZONES.map((z, i) => `<th class="r"><input value="${z}" onchange="ZONES[${i}]=this.value;localStorage.setItem('shipping_zones',JSON.stringify(ZONES));renderRateTables()" class="rate-input" style="width:100px!important; color:white; background:transparent; border:1px dashed #444;"></th>`).join("") + `</tr></thead><tbody>` + 
+          RATES[c].map((r, ri) => `<tr><td><input type="number" value="${r[0]}" onchange="RATES['${c}'][${ri}][0]=parseFloat(this.value);localStorage.setItem('shipping_rates',JSON.stringify(RATES))" class="rate-input"></td>` + ZONES.map((_, zi) => `<td class="r"><input type="number" value="${r[zi+1]}" onchange="RATES['${c}'][${ri}][${zi+1}]=parseFloat(this.value);localStorage.setItem('shipping_rates',JSON.stringify(RATES))" class="rate-input"> ฿</td>`).join("") + `</tr>`).join("") + `</tbody></table></div>`;
+      });
+    }
+
+    function handleExcelUpload(e) {
+      const file = e.target.files[0]; if(!file) return;
+      const reader = new FileReader(); reader.onload = (evt) => {
+        const wb = XLSX.read(evt.target.result, {type:'binary'});
+        const data = { activeSheet: wb.SheetNames[0], sheets: {} };
+        wb.SheetNames.forEach(n => { data.sheets[n] = XLSX.utils.sheet_to_json(wb.Sheets[n], {header:1}); });
+        localStorage.setItem("shipping_excel_data", JSON.stringify(data)); renderExcelTable(); rebuildProductDropdown(); renderSummary();
+      }; reader.readAsBinaryString(file);
+    }
+    function renderExcelTable() {
+      const data = JSON.parse(localStorage.getItem("shipping_excel_data")) || DEFAULT_EXCEL_DATA;
+      const sheet = data.sheets[data.activeSheet]; const tbody = document.getElementById("excelTbody"); if(!tbody) return;
+      const head = document.querySelector("#excelTable thead");
+      head.innerHTML = "<tr><th>#</th>" + sheet[0].map((h, i) => `<th>${h}</th>`).join("") + "</tr>";
+      const q = (document.getElementById("excelSearch")?.value || "").toLowerCase();
+      const filtered = sheet.slice(1).filter(r => !q || r.join(' ').toLowerCase().includes(q));
+      const paged = filtered.slice((currentExcelPage-1)*PAGE_SIZE, currentExcelPage*PAGE_SIZE);
+      tbody.innerHTML = paged.map((r, i) => `<tr><td class="idx">${((currentExcelPage-1)*PAGE_SIZE) + i + 1}</td>` + r.map(v => `<td>${v}</td>`).join("") + "</tr>").join("");
+      renderPagination("excelPagination", filtered.length, currentExcelPage, (p)=> { currentExcelPage=p; renderExcelTable(); });
+    }
+
+    function renderPagination(id, total, current, onChange) {
+      const container = document.getElementById(id); if(!container) return;
+      const pages = Math.ceil(total/PAGE_SIZE) || 1;
+      container.innerHTML = `<button class="page-btn" ${current===1?'disabled':''} onclick="(${onChange})( ${current-1} )">← ก่อนหน้า</button><div style="font-weight:bold;">${current} / ${pages}</div><button class="page-btn" ${current===pages?'disabled':''} onclick="(${onChange})( ${current+1} )">ถัดไป →</button>`;
+    }
+
+    function addCustomCol() { const n = prompt("ชื่อคอลัมน์?"); if(n){ CUSTOM_COLS.push(n); localStorage.setItem('shipping_custom_cols', JSON.stringify(CUSTOM_COLS)); renderSummary(); } }
+    function deleteCustomCol(i) { if(confirm("ลบ?")){ CUSTOM_COLS.splice(i,1); localStorage.setItem('shipping_custom_cols', JSON.stringify(CUSTOM_COLS)); renderSummary(); } }
+    function saveCustomData(r, c, v) { CUSTOM_DATA[`${r}_${c}`] = v; localStorage.setItem('shipping_custom_data', JSON.stringify(CUSTOM_DATA)); }
+    function addExcelRow() { let d = JSON.parse(localStorage.getItem('shipping_excel_data'))||DEFAULT_EXCEL_DATA; d.sheets[d.activeSheet].push(new Array(d.sheets[d.activeSheet][0].length).fill("")); localStorage.setItem('shipping_excel_data', JSON.stringify(d)); renderExcelTable(); }
+    function addExcelCol() { const n = prompt("ชื่อคอลัมน์?"); if(n){ let d = JSON.parse(localStorage.getItem('shipping_excel_data'))||DEFAULT_EXCEL_DATA; d.sheets[d.activeSheet].forEach((r, i) => r.push(i===0?n:"")); localStorage.setItem('shipping_excel_data', JSON.stringify(d)); renderExcelTable(); } }
+    function resetRates() { if(confirm("รีเซ็ต?")){ localStorage.removeItem("shipping_rates"); localStorage.removeItem("shipping_zones"); location.reload(); } }
+    function resetExcelData() { if(confirm("ล้างข้อมูล?")){ localStorage.removeItem("shipping_excel_data"); location.reload(); } }
+    function exportExcelDB() {
+      const d = JSON.parse(localStorage.getItem("shipping_excel_data")) || DEFAULT_EXCEL_DATA;
+      const wb = XLSX.utils.book_new();
+      Object.keys(d.sheets).forEach(n => { XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(d.sheets[n]), n); });
+      XLSX.writeFile(wb, "Shipping_Data.xlsx");
+    }
+
+    window.onload = () => { 
+      rebuildProductDropdown(); renderManageProducts(); renderSummary(); renderExcelTable();
+      const zSel = document.getElementById("cartZone");
+      ZONES.forEach((z, i) => { zSel.innerHTML += `<option value="${i}">${z}</option>`; });
+    };
+  </script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+</body>
+</html>
