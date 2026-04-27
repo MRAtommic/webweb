@@ -149,6 +149,16 @@
     .view.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+    /* Fix overlapping settings tables */
+    .tc { display: none; }
+    .tc.active { display: block; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    /* Fix overlapping settings tables */
+    .tc { display: none; }
+    .tc.active { display: block; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+
     .card {
       background: var(--s1); border: 1px solid var(--border); border-radius: 20px;
       padding: 20px; box-shadow: var(--card-shadow); margin-bottom: 16px;
@@ -310,9 +320,10 @@
             <div id="egCarrier" class="cbadge">—</div>
           </div>
           <div style="text-align:right; flex-grow:0;">
-            <div id="egPrice" style="font-size:3.2rem; font-weight:800; font-family:'IBM Plex Mono'; color:var(--accent); line-height:1;">0<small style="font-size:1.4rem; margin-left:4px;">฿</small></div>
+            <div style="font-size:0.75rem; color:var(--muted); margin-bottom:4px; font-family:'IBM Plex Mono'; letter-spacing:1px;">ราคาแนะนำเก็บลูกค้า</div>
+            <div id="egPrice" style="font-size:3.8rem; font-weight:800; font-family:'IBM Plex Mono'; color:var(--accent); line-height:1;">0<small style="font-size:1.4rem; margin-left:4px;">฿</small></div>
             <div class="info-rows" style="margin-top:16px; background:transparent; padding:0; align-items:flex-end;">
-              <div class="ir" style="gap:20px;"><span>ควรเก็บลูกค้า</span><span class="v" id="egTarget" style="font-size:1.1rem; color:var(--accent);">—</span></div>
+              <div class="ir" style="gap:20px;"><span>ต้นทุนขนส่งจริง</span><span class="v" id="egCost" style="font-size:1.1rem; color:var(--text);">—</span></div>
               <div class="ir" style="gap:20px;"><span>จำนวนในชุด</span><span class="v" id="egQty">—</span></div>
               <div class="ir" style="gap:20px;"><span>ประวัติการสั่ง</span><span class="v" id="egCount">—</span></div>
             </div>
@@ -576,19 +587,15 @@
       const sheet = data.sheets[data.activeSheet]; if(!sheet) return;
       const headers = sheet[0]; const row = sheet.find(r => r[0] === val); if(!row) return;
       
-      const zi = document.getElementById("zone").selectedIndex;
-      // More specific header detection to avoid matching index 0 (Product Name)
       const collectIdx = headers.findIndex((h, i) => i > 0 && h.includes('ควรเก็บ'));
       const qtyIdx = headers.findIndex((h, i) => i > 0 && h.includes('จำนวน') && h.includes('ชุด'));
       const countIdx = headers.findIndex((h, i) => i > 0 && h.includes('ครั้ง'));
       
-      // Find prices based on zone (BKK is usually index 4, Province is 5 in default structure)
-      // or look for zone-specific keywords
+      // Find prices based on zone
       let bkkIdx = headers.findIndex((h, i) => i > 0 && (h.includes('กรุงเทพ') || h.includes('BKK')));
       let provIdx = headers.findIndex((h, i) => i > 0 && (h.includes('ต่างจังหวัด') || h.includes('Prov')));
       let remoteIdx = headers.findIndex((h, i) => i > 0 && (h.includes('ห่างไกล') || h.includes('Remote')));
       
-      // Fallback to default indices if keywords not found
       if(bkkIdx === -1) bkkIdx = 4;
       if(provIdx === -1) provIdx = 5;
       if(remoteIdx === -1) remoteIdx = 6;
@@ -604,13 +611,19 @@
       }, "spx");
 
       document.getElementById("excelResult").style.display = "block";
-      document.getElementById("egProductName").textContent = val;
-      document.getElementById("egCarrier").textContent = (ID_MAP[bestCarrier] || "Carrier") + " Express";
+      document.getElementById("egProductName").innerText = val;
+      document.getElementById("egCarrier").innerText = ID_MAP[bestCarrier] + " (ราคาดีที่สุด)";
       document.getElementById("egCarrier").className = "cbadge " + bestCarrier;
-      document.getElementById("egPrice").innerHTML = (row[zonePriceIdx] || "—") + "<small style='font-size:1.4rem; margin-left:4px;'>฿</small>";
-      document.getElementById("egTarget").textContent = collectIdx!==-1 ? row[collectIdx] : "—";
-      document.getElementById("egQty").textContent = qtyIdx!==-1 ? row[qtyIdx] : "—";
-      document.getElementById("egCount").textContent = countIdx!==-1 ? row[countIdx] : "—";
+      
+      // SHOW TARGET PRICE (ควรเก็บ) AS PRIMARY
+      const targetPrice = collectIdx !== -1 ? row[collectIdx] : "—";
+      document.getElementById("egPrice").innerHTML = (targetPrice||"0").toLocaleString() + '<small style="font-size:1.4rem; margin-left:4px;">฿</small>';
+      
+      // Show actual carrier cost in sub info
+      const bestPrice = headers.findIndex(h => h.toLowerCase().includes(bestCarrier)) !== -1 ? row[headers.findIndex(h => h.toLowerCase().includes(bestCarrier))] : "—";
+      document.getElementById("egCost").innerText = bestPrice ? bestPrice + " ฿" : "—";
+      document.getElementById("egQty").innerText = qtyIdx !== -1 ? row[qtyIdx] : "—";
+      document.getElementById("egCount").innerText = (countIdx !== -1 ? row[countIdx] : "0") + " ครั้ง";
       
       const prod = PRODUCTS.find(p => p.name === val);
       if(prod) {
