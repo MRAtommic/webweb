@@ -600,6 +600,7 @@
       if(provIdx === -1) provIdx = 5;
       if(remoteIdx === -1) remoteIdx = 6;
       
+      const zi = document.getElementById("zone").selectedIndex;
       const zonePriceIdx = [bkkIdx, provIdx, remoteIdx][zi];
 
       const bestCarrier = CARRIERS.reduce((a, b) => {
