@@ -777,7 +777,7 @@
       
       const collectIdx = hs.findIndex(h => h.includes('ควรเก็บ'));
       const carriersIdx = hs.map((h, i) => CARRIERS.some(c => h.toLowerCase().includes(c)) ? i : -1).filter(i => i !== -1);
-      const displayIdx = [0, 1, ...carriersIdx, collectIdx].filter(i => i !== -1);
+      const displayIdx = [0, 1, collectIdx].filter(i => i !== -1);
 
       thead.innerHTML = "<th>#</th>" + displayIdx.map(i => `<th class="${i===collectIdx?'highlight-collect':''}">${hs[i]}</th>`).join("") + CUSTOM_COLS.map((c, i) => `<th>${c} <button onclick="deleteCustomCol(${i})" style="border:none;background:none;color:var(--warn);cursor:pointer;">×</button></th>`).join("");
       
