@@ -297,10 +297,10 @@
 
     <div class="main-tabs">
       <button class="main-tab active" onclick="switchMainTab('calc', this)">คำนวณรายชิ้น</button>
-      <button class="main-tab" onclick="switchMainTab('cart', this)">จัดกลุ่มลงกล่อง 📦</button>
-      <button class="main-tab" onclick="switchMainTab('products', this)">จัดการสินค้า 📋</button>
-      <button class="main-tab" onclick="switchMainTab('rates', this)">ตั้งค่าค่าส่ง ⚙️</button>
-      <button class="main-tab" onclick="switchMainTab('excel', this)">ฐานข้อมูล Excel 📊</button>
+      <button class="main-tab" onclick="switchMainTab('cart', this)">จัดกลุ่มลงกล่อง</button>
+      <button class="main-tab" onclick="switchMainTab('products', this)">จัดการสินค้า</button>
+      <button class="main-tab" onclick="switchMainTab('rates', this)">ตั้งค่าค่าส่ง</button>
+      <button class="main-tab" onclick="switchMainTab('excel', this)">ฐานข้อมูล Excel</button>
     </div>
 
     <!-- Calc View -->
@@ -329,7 +329,7 @@
       </div>
 
       <div id="excelResult" class="card" style="display:none; border: 2px solid var(--accent); background: rgba(37,99,235,0.03); padding: 24px;">
-        <div class="card-title" style="color: var(--accent); margin-bottom: 16px;">📌 ข้อมูลแนะนำจาก Guideline</div>
+        <div class="card-title" style="color: var(--accent); margin-bottom: 16px;">ข้อมูลแนะนำจาก Guideline</div>
         <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;">
           <div style="flex:1; min-width:200px;">
             <div id="egProductName" style="font-size:1.5rem; font-weight:800; margin-bottom:12px; color:var(--text); line-height:1.2;">—</div>
@@ -380,7 +380,7 @@
     <!-- Cart View -->
     <div id="view-cart" class="view">
       <div class="card">
-        <div class="card-title">จัดกลุ่มสินค้าลงกล่อง 📦</div>
+        <div class="card-title">จัดกลุ่มสินค้าลงกล่อง</div>
         <div style="display:flex; gap:16px; margin-bottom:24px; align-items:flex-end; flex-wrap:wrap;">
           <div style="flex:1; min-width:250px;"><label>เลือกสินค้า</label><select id="cartProductSel"></select></div>
           <div style="width:100px;"><label>จำนวน</label><input type="number" id="cartProductQty" value="1" min="1"></div>
@@ -411,7 +411,7 @@
     <!-- Products View -->
     <div id="view-products" class="view">
       <div class="card">
-        <div class="card-title">จัดการรายการสินค้า 📋</div>
+        <div class="card-title">จัดการรายการสินค้า</div>
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-bottom:32px; background:var(--s2); padding:24px; border-radius:20px;">
           <div class="fg"><label>ชื่อสินค้า</label><input type="text" id="pName" placeholder="เช่น กระเป๋า Duit"></div>
           <div class="fg"><label>น้ำหนัก (kg)</label><input type="number" id="pWeight" step="0.1"></div>
@@ -429,7 +429,7 @@
     <!-- Rates View -->
     <div id="view-rates" class="view">
       <div class="card">
-        <div class="card-title">ตั้งค่าอัตราค่าจัดส่ง ⚙️</div>
+        <div class="card-title">ตั้งค่าอัตราค่าจัดส่ง</div>
         <div class="tabs">
           <button class="tab active" onclick="switchTab('spx', this)">SPX</button>
           <button class="tab" onclick="switchTab('flash', this)">Flash</button>
@@ -449,7 +449,7 @@
     <!-- Excel View -->
     <div id="view-excel" class="view">
       <div class="card">
-        <div class="card-title">ฐานข้อมูล Excel 📊</div>
+        <div class="card-title">ฐานข้อมูล Excel</div>
         <div class="summary-header-row">
           <div style="display:flex; gap:12px;">
             <label class="export-btn" style="margin:0;">
