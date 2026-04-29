@@ -349,6 +349,7 @@
             }
           </style>
         </div>
+        <button class="export-btn" style="width:100%; margin-top:20px; justify-content:center; background:var(--accent); color:white; border-radius:12px; font-weight:bold; font-size:1.1rem; padding:12px; transition: all 0.3s ease;" onclick="copySummaryToClipboard(event)">📋 คัดลอกสรุปส่งลูกค้า</button>
       </div>
 
       <div class="results" id="carrierResults">
@@ -657,6 +658,32 @@
           pEl.innerHTML = r.pr.toLocaleString() + "<small> ฿</small>"; dEl.textContent = `คิดจาก ${r.pkg.toFixed(2)} kg`; 
           if(r.pr === minP && r.pr > 0) card.classList.add("best"); else card.classList.remove("best");
         }
+      });
+    }
+    
+    function copySummaryToClipboard(e) {
+      const btn = e.currentTarget;
+      const name = document.getElementById("egProductName").innerText;
+      const price = document.getElementById("egPrice").innerText.replace('฿', '').trim();
+      const qty = document.getElementById("egQty").innerText;
+      const zone = document.getElementById("zone").options[document.getElementById("zone").selectedIndex].text;
+      
+      const text = `📦 สรุปรายการจัดส่งสินค้า [Duit]\n` +
+                   `🔹 สินค้า: ${name}\n` +
+                   `🔹 จำนวน: ${qty} ชิ้น\n` +
+                   `🔹 ปลายทาง: ${zone}\n` +
+                   `💰 ค่าบริการจัดส่ง: ${price} บาท`;
+                   
+      navigator.clipboard.writeText(text).then(() => {
+        const oldText = btn.innerHTML;
+        btn.innerHTML = "✅ คัดลอกเรียบร้อยแล้ว!";
+        btn.style.background = "#10B981";
+        setTimeout(() => {
+          btn.innerHTML = oldText;
+          btn.style.background = "var(--accent)";
+        }, 2000);
+      }).catch(err => {
+        alert("ไม่สามารถคัดลอกได้: " + err);
       });
     }
 
