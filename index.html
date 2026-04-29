@@ -624,9 +624,9 @@
       const sheet = data.sheets[data.activeSheet]; if(!sheet) return;
       const headers = sheet[0]; const row = sheet.find(r => r[2] === val); if(!row) return;
       
-      const collectIdx = headers.findIndex((h, i) => i > 0 && h.includes('ควรเก็บ'));
-      const qtyIdx = headers.findIndex((h, i) => i > 0 && h.includes('จำนวน'));
-      const countIdx = headers.findIndex((h, i) => i > 0 && h.includes('ครั้ง'));
+      const collectIdx = headers.findIndex(h => h.includes('ควรเก็บ'));
+      const qtyIdx = headers.findIndex(h => h.includes('จำนวน'));
+      const countIdx = headers.findIndex(h => h.includes('ครั้ง'));
       
       // Find prices based on zone
       let bkkIdx = headers.findIndex((h, i) => i > 0 && (h.includes('กรุงเทพ') || h.includes('BKK')));
@@ -658,10 +658,7 @@
       document.getElementById("egPrice").innerHTML = (targetPrice||"0").toLocaleString() + '<small style="font-size:1.4rem; margin-left:4px;">฿</small>';
       
       // Show actual carrier cost in sub info
-      const bestPrice = headers.findIndex(h => h.toLowerCase().includes(bestCarrier)) !== -1 ? row[headers.findIndex(h => h.toLowerCase().includes(bestCarrier))] : "—";
-      document.getElementById("egCost").innerText = bestPrice ? bestPrice + " ฿" : "—";
       document.getElementById("egQty").innerText = qtyIdx !== -1 ? row[qtyIdx] : "—";
-      document.getElementById("egCount").innerText = (countIdx !== -1 ? row[countIdx] : "0") + " ครั้ง";
       
       const prod = PRODUCTS.find(p => p.name === val);
       if(prod) {
