@@ -573,9 +573,9 @@
     };
     
     // Migration check for database update
-    if (localStorage.getItem('shipping_db_version') !== '5.0') {
+    if (localStorage.getItem('shipping_db_version') !== '6.0') {
       localStorage.setItem('shipping_excel_data', JSON.stringify(DEFAULT_EXCEL_DATA));
-      localStorage.setItem('shipping_db_version', '5.0');
+      localStorage.setItem('shipping_db_version', '6.0');
     }
 
     let PRODUCTS = JSON.parse(localStorage.getItem("shipping_products")) || DEFAULT_PRODUCTS;
