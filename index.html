@@ -298,8 +298,6 @@
 
     <div class="main-tabs">
       <button class="main-tab active" onclick="switchMainTab('calc', this)">คำนวณรายชิ้น</button>
-      <button class="main-tab" onclick="switchMainTab('cart', this)">จัดกลุ่มลงกล่อง</button>
-      <button class="main-tab" onclick="switchMainTab('products', this)">จัดการสินค้า</button>
       <button class="main-tab" onclick="switchMainTab('rates', this)">ตั้งค่าค่าส่ง</button>
       <button class="main-tab" onclick="switchMainTab('excel', this)">ฐานข้อมูล Excel</button>
     </div>
@@ -376,54 +374,6 @@
       </div>
     </div>
 
-    <!-- Cart View -->
-    <div id="view-cart" class="view">
-      <div class="card">
-        <div class="card-title">จัดกลุ่มสินค้าลงกล่อง</div>
-        <div style="display:flex; gap:16px; margin-bottom:24px; align-items:flex-end; flex-wrap:wrap;">
-          <div style="flex:1; min-width:250px;"><label>เลือกสินค้า</label><select id="cartProductSel"></select></div>
-          <div style="width:100px;"><label>จำนวน</label><input type="number" id="cartProductQty" value="1" min="1"></div>
-          <button class="export-btn" onclick="addToCart()" style="height:48px;">+ หยิบลงกล่อง</button>
-        </div>
-        <div class="st-wrap" style="margin-bottom:32px;">
-          <table class="st"><thead><tr><th>สินค้า</th><th class="r">จำนวน</th><th class="r">น้ำหนักรวม</th><th class="c">จัดการ</th></tr></thead><tbody id="cartTbody"></tbody></table>
-        </div>
-        <div style="background:var(--s2); padding:32px; border-radius:20px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h3 style="margin:0;">สรุปขนาดกล่องรวม</h3>
-            <select id="cartZone" style="width:200px;" onchange="renderCartCalc()"></select>
-          </div>
-          <div class="dim-row">
-            <div><label>น้ำหนักรวม (kg)</label><input type="number" id="cartTotalWeight" step="0.1" oninput="renderCartCalc()"></div>
-            <div><label>กว้าง (cm)</label><input type="number" id="cartTotalWd" oninput="renderCartCalc()"></div>
-            <div><label>ยาว (cm)</label><input type="number" id="cartTotalLn" oninput="renderCartCalc()"></div>
-            <div><label>สูง (cm)</label><input type="number" id="cartTotalHt" oninput="renderCartCalc()"></div>
-          </div>
-          <button class="export-btn" style="width:100%; margin-top:24px; font-size:1.1rem; justify-content:center;" onclick="renderCartCalc()">คำนวณค่าส่งทั้งกล่อง</button>
-        </div>
-        <div id="cartCalcResult" style="margin-top:32px; display:none;">
-          <table class="st"><thead><tr><th>ขนส่ง</th><th class="r">นน.ที่คิดราคา</th><th class="r">ค่าส่งประมาณการ</th></tr></thead><tbody id="cartCalcTbody"></tbody></table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Products View -->
-    <div id="view-products" class="view">
-      <div class="card">
-        <div class="card-title">จัดการรายการสินค้า</div>
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-bottom:32px; background:var(--s2); padding:24px; border-radius:20px;">
-          <div class="fg"><label>ชื่อสินค้า</label><input type="text" id="pName" placeholder="เช่น กระเป๋า Duit"></div>
-          <div class="fg"><label>น้ำหนัก (kg)</label><input type="number" id="pWeight" step="0.1"></div>
-          <div class="fg"><label>ขนาด กว้าง (cm)</label><input type="number" id="pW"></div>
-          <div class="fg"><label>ขนาด ยาว (cm)</label><input type="number" id="pL"></div>
-          <div class="fg"><label>ขนาด สูง (cm)</label><input type="number" id="pH"></div>
-          <div class="fg" style="display:flex; align-items:flex-end;"><button class="export-btn" style="width:100%;" onclick="saveProduct()">เพิ่มสินค้า</button></div>
-        </div>
-        <div class="st-wrap">
-          <table class="st"><thead><tr><th>ชื่อสินค้า</th><th class="r">น้ำหนัก (kg)</th><th class="r">ขนาด ก×ย×ส</th><th class="c">จัดการ</th></tr></thead><tbody id="manageProdTbody"></tbody></table>
-        </div>
-      </div>
-    </div>
 
     <!-- Rates View -->
     <div id="view-rates" class="view">
@@ -875,9 +825,11 @@
     }
 
     window.onload = () => { 
-      rebuildProductDropdown(); renderManageProducts(); renderSummary(); renderExcelTable();
+      rebuildProductDropdown(); renderSummary(); renderExcelTable();
       const zSel = document.getElementById("cartZone");
-      ZONES.forEach((z, i) => { zSel.innerHTML += `<option value="${i}">${z}</option>`; });
+      if(zSel) {
+        ZONES.forEach((z, i) => { zSel.innerHTML += `<option value="${i}">${z}</option>`; });
+      }
     };
   </script>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
