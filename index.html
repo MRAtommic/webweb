@@ -558,14 +558,24 @@
         ["DUIT0077 + DUIT0031", "Waterpot + anti-bug-light", "waterpot + Antibug light", 2, 80],
         ["DUIT0091 + DUIT0089", "banana brush + duit train express (dtx)", "banana brush + train express (dtx)", 2, 120],
         ["DUIT0067 + DUIT0003 + DUIT0006", "A D Board WH + BoxCW + ScoopW", "all day board white and white cover + poo poo box cube white + poo poo scoop white (hole)", 3, 200],
-        ["DUIT0002 + DUIT0036 + DUIT0006", "BoxLW + Mat L + ScoopW", "poo poo box long white + poo poo mat white (L) + poo poo scoop white (hole)", 3, 300]
+        ["DUIT0002 + DUIT0036 + DUIT0006", "BoxLW + Mat L + ScoopW", "poo poo box long white + poo poo mat white (L) + poo poo scoop white (hole)", 3, 300],
+        ["-", "-", "Table hammock", 1, 300],
+        ["-", "-", "windown hammock", 1, 150],
+        ["-", "-", "mini cat tower", 1, 500],
+        ["-", "-", "City rover", 1, 500],
+        ["-", "-", "tiramisu board 2", 1, 150],
+        ["-", "-", "all scoop mint", 1, 50],
+        ["-", "-", "all scoop white", 1, 50],
+        ["-", "-", "Standing borad", 1, 150],
+        ["-", "-", "Stool house", 1, 300],
+        ["-", "-", "tiramisu board 3", 1, 300]
       ]}
     };
     
     // Migration check for database update
-    if (localStorage.getItem('shipping_db_version') !== '4.0') {
+    if (localStorage.getItem('shipping_db_version') !== '5.0') {
       localStorage.setItem('shipping_excel_data', JSON.stringify(DEFAULT_EXCEL_DATA));
-      localStorage.setItem('shipping_db_version', '4.0');
+      localStorage.setItem('shipping_db_version', '5.0');
     }
 
     let PRODUCTS = JSON.parse(localStorage.getItem("shipping_products")) || DEFAULT_PRODUCTS;
