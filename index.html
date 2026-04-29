@@ -498,76 +498,76 @@
     const DEFAULT_EXCEL_DATA = {
       activeSheet: 'ตารางอ้างอิง',
       sheets: { 'ตารางอ้างอิง': [
-        ["ชุดสินค้า", "จำนวนในชุด", "ค่าส่งที่ควรเก็บ", "รหัสสินค้า", "ชื่อสินค้าจริง"],
-        ["Soft Brush", 1, 50, "DUIT0045", "Soft Brush"],
-        ["ScoopW", 1, 50, "DUIT0006", "poo poo scoop white (hole)"],
-        ["Waterpot Filter A", 1, 50, "DUIT0078", "waterpot active carbon block filter A type"],
-        ["BoxLW + ScoopW", 2, 250, "DUIT0002 + DUIT0006", "poo poo box long white + poo poo scoop white (hole)"],
-        ["Daily Mushroom M", 1, 80, "DUIT0066", "daily table (M) mushroom"],
-        ["Bowl S", 1, 50, "DUIT0023", "The Table Ceramic Bowl White (S)"],
-        ["Legs L", 1, 50, "DUIT0026", "Leg (M) <- เรียก Legs L ในใบส่ง"],
-        ["catthenon", 1, 200, "DUIT0088", "catthenon"],
-        ["A D Board WH", 1, 100, "DUIT0067", "all day board white and white cover"],
-        ["Bowl M", 1, 50, "DUIT0024", "The Table Ceramic Bowl White (M)"],
-        ["Peanut Board", 1, 200, "DUIT0052", "peanut board"],
-        ["anti-bug-light", 1, 50, "DUIT0031", "Antibug light"],
-        ["ScoopW + poo poo box 2 way", 2, 150, "DUIT0006 + DUIT0092", "poo poo scoop white (hole) + poo poo box 2 way"],
-        ["anti-bug-light + banana brush", 2, 80, "DUIT0031 + DUIT0091", "Antibug light + banana brush"],
-        ["A D Board BR", 1, 100, "DUIT0013", "all day board brown and white cover"],
-        ["BoxCW", 1, 200, "DUIT0003", "poo poo box cube white"],
-        ["Daily White M", 1, 80, "DUIT0034", "daily table (M) white"],
-        ["Mat M", 1, 80, "DUIT0035", "poo poo mat white (M)"],
-        ["Non Slip sand cream", 1, 80, "DUIT0041", "non slip silicone mat sand cream"],
-        ["Peek a poo Set", 1, 200, "DUIT0051", "Peek a poo 2pcs set (include bridge)"],
-        ["Slow Feeder", 1, 50, "DUIT0054", "Slow feeder"],
-        ["TB+Long M (4 cm.)", 1, 200, "DUIT0030", "thetableplus, bowl(M), wood legs (L)"],
-        ["TB+Short S (3 cm.)", 1, 200, "DUIT0027", "thetableplus, bowl(S), wood legs (S)"],
-        ["banana brush", 1, 50, "DUIT0091", "banana brush"],
-        ["floating bathtub", 1, 150, "DUIT0087", "floating bathtub"],
-        ["A D Basket + A D Board BR", 2, 150, "DUIT0032 + DUIT0013", "all day basket + all day board brown and white cover"],
-        ["A D Basket + A D Board WH", 2, 150, "DUIT0032 + DUIT0067", "all day basket + all day board white and white cover"],
-        ["A D Basket", 1, 80, "DUIT0032", "all day basket"],
-        ["BoxLW", 1, 200, "DUIT0002", "poo poo box long white"],
-        ["Dry Mat", 1, 100, "DUIT0010", "drymat"],
-        ["Duit smile dental brush", 1, 50, "FREE-GIFT", "Duit smile dental brush (สินค้าแจกฟรี)"],
-        ["Legs S", 1, 50, "DUIT0025", "Leg (S)"],
-        ["Mat L", 1, 100, "DUIT0036", "poo poo mat white (L)"],
-        ["Mouse bot", 1, 50, "DUIT0080", "mouse bot set"],
-        ["Refil 62cm STDB", 1, 75, "DUIT0093", "standing board 62cm refil brown"],
-        ["Stand Board", 1, 150, "DUIT0073/DUIT0046", "standing board frame + Refil (White or Brown)"],
-        ["Tray", 1, 50, "DUIT0047", "silicone tray"],
-        ["Waterpot", 1, 80, "DUIT0077", "waterpot"],
-        ["Waterpot Filter B", 1, 50, "DUIT0079", "waterpot active carbon block filter B type"],
-        ["duit train express (dtx)", 1, 100, "DUIT0089", "train express (dtx)"],
-        ["poo poo box 2 way", 1, 150, "DUIT0092", "poo poo box 2 way"],
-        ["A D Board BR + All day rack", 2, 300, "DUIT0013 + DUIT0090", "all day board brown and white cover + all day rack"],
-        ["A D Board BR + BoxCW", 2, 200, "DUIT0013 + DUIT0003", "all day board brown and white cover + poo poo box cube white"],
-        ["A D Board WH + All day rack", 2, 300, "DUIT0067 + DUIT0090", "all day board white and white cover + all day rack"],
-        ["A D Board WH + anti-bug-light", 2, 200, "DUIT0067 + DUIT0031", "all day board white and white cover + Antibug light"],
-        ["A D Board WH + floating bathtub", 2, 200, "DUIT0067 + DUIT0087", "all day board white and white cover + floating bathtub"],
-        ["All day rack + anti-bug-light", 2, 300, "DUIT0090 + DUIT0031", "all day rack + Antibug light"],
-        ["Bowl M + Daily White M", 2, 100, "DUIT0095 + DUIT0034", "Daily Table Ceramic Bowl White (M) + daily table (M) white"],
-        ["Bowl M + Legs L", 2, 70, "DUIT0024 + DUIT0026", "The Table Ceramic Bowl White (M) + Leg (M) <- เรียก Legs L ในใบส่ง"],
-        ["Bowl S + TB+Long M (4 cm.)", 2, 200, "DUIT0023 + DUIT0030", "The Table Ceramic Bowl White (S) + thetableplus, bowl(M), wood legs (L)"],
-        ["BoxCW + ScoopW", 2, 200, "DUIT0003 + DUIT0006", "poo poo box cube white + poo poo scoop white (hole)"],
-        ["Brush + Peek A Poo", 2, 200, "DUIT0050 + DUIT0051", "Peek a poo brush only + Peek a poo 2pcs set (include bridge)"],
-        ["Daily Mushroom S + Legs S", 2, 80, "DUIT0065 + DUIT0025", "daily table (S) mushroom + Leg (S)"],
-        ["Mat M + ScoopW", 2, 80, "DUIT0035 + DUIT0006", "poo poo mat white (M) + poo poo scoop white (hole)"],
-        ["Mouse bot + ScoopW", 2, 70, "DUIT0080 + DUIT0006", "mouse bot set + poo poo scoop white (hole)"],
-        ["Mouse bot + anti-bug-light", 2, 50, "DUIT0080 + DUIT0031", "mouse bot set + Antibug light"],
-        ["Peanut Board + ScoopW", 2, 200, "DUIT0052 + DUIT0006", "peanut board + poo poo scoop white (hole)"],
-        ["Soft Brush + anti-bug-light", 2, 70, "DUIT0045 + DUIT0031", "Soft Brush + Antibug light"],
-        ["Waterpot + anti-bug-light", 2, 80, "DUIT0077 + DUIT0031", "waterpot + Antibug light"],
-        ["banana brush + duit train express (dtx)", 2, 120, "DUIT0091 + DUIT0089", "banana brush + train express (dtx)"],
-        ["A D Board WH + BoxCW + ScoopW", 3, 200, "DUIT0067 + DUIT0003 + DUIT0006", "all day board white and white cover + poo poo box cube white + poo poo scoop white (hole)"],
-        ["BoxLW + Mat L + ScoopW", 3, 300, "DUIT0002 + DUIT0036 + DUIT0006", "poo poo box long white + poo poo mat white (L) + poo poo scoop white (hole)"]
+        ["รหัสสินค้า", "ชุดสินค้า (ชื่อย่อ)", "ชื่อสินค้าจริง", "จำนวนสินค้า", "ค่าส่งที่ควรเก็บ"],
+        ["DUIT0045", "Soft Brush", "Soft Brush", 1, 50],
+        ["DUIT0006", "ScoopW", "poo poo scoop white (hole)", 1, 50],
+        ["DUIT0078", "Waterpot Filter A", "waterpot active carbon block filter A type", 1, 50],
+        ["DUIT0002 + DUIT0006", "BoxLW + ScoopW", "poo poo box long white + poo poo scoop white (hole)", 2, 250],
+        ["DUIT0066", "Daily Mushroom M", "daily table (M) mushroom", 1, 80],
+        ["DUIT0023", "Bowl S", "The Table Ceramic Bowl White (S)", 1, 50],
+        ["DUIT0026", "Legs L", "Leg (M) <- เรียก Legs L ในใบส่ง", 1, 50],
+        ["DUIT0088", "catthenon", "catthenon", 1, 200],
+        ["DUIT0067", "A D Board WH", "all day board white and white cover", 1, 100],
+        ["DUIT0024", "Bowl M", "The Table Ceramic Bowl White (M)", 1, 50],
+        ["DUIT0052", "Peanut Board", "peanut board", 1, 200],
+        ["DUIT0031", "anti-bug-light", "Antibug light", 1, 50],
+        ["DUIT0006 + DUIT0092", "ScoopW + poo poo box 2 way", "poo poo scoop white (hole) + poo poo box 2 way", 2, 150],
+        ["DUIT0031 + DUIT0091", "anti-bug-light + banana brush", "Antibug light + banana brush", 2, 80],
+        ["DUIT0013", "A D Board BR", "all day board brown and white cover", 1, 100],
+        ["DUIT0003", "BoxCW", "poo poo box cube white", 1, 200],
+        ["DUIT0034", "Daily White M", "daily table (M) white", 1, 80],
+        ["DUIT0035", "Mat M", "poo poo mat white (M)", 1, 80],
+        ["DUIT0041", "Non Slip sand cream", "non slip silicone mat sand cream", 1, 80],
+        ["DUIT0051", "Peek a poo Set", "Peek a poo 2pcs set (include bridge)", 1, 200],
+        ["DUIT0054", "Slow Feeder", "Slow feeder", 1, 50],
+        ["DUIT0030", "TB+Long M (4 cm.)", "thetableplus, bowl(M), wood legs (L)", 1, 200],
+        ["DUIT0027", "TB+Short S (3 cm.)", "thetableplus, bowl(S), wood legs (S)", 1, 200],
+        ["DUIT0091", "banana brush", "banana brush", 1, 50],
+        ["DUIT0087", "floating bathtub", "floating bathtub", 1, 150],
+        ["DUIT0032 + DUIT0013", "A D Basket + A D Board BR", "all day basket + all day board brown and white cover", 2, 150],
+        ["DUIT0032 + DUIT0067", "A D Basket + A D Board WH", "all day basket + all day board white and white cover", 2, 150],
+        ["DUIT0032", "A D Basket", "all day basket", 1, 80],
+        ["DUIT0002", "BoxLW", "poo poo box long white", 1, 200],
+        ["DUIT0010", "Dry Mat", "drymat", 1, 100],
+        ["FREE-GIFT", "Duit smile dental brush", "Duit smile dental brush (สินค้าแจกฟรี)", 1, 50],
+        ["DUIT0025", "Legs S", "Leg (S)", 1, 50],
+        ["DUIT0036", "Mat L", "poo poo mat white (L)", 1, 100],
+        ["DUIT0080", "Mouse bot", "mouse bot set", 1, 50],
+        ["DUIT0093", "Refil 62cm STDB", "standing board 62cm refil brown", 1, 75],
+        ["DUIT0073/DUIT0046", "Stand Board", "standing board frame + Refil (White or Brown)", 1, 150],
+        ["DUIT0047", "Tray", "silicone tray", 1, 50],
+        ["DUIT0077", "Waterpot", "waterpot", 1, 80],
+        ["DUIT0079", "Waterpot Filter B", "waterpot active carbon block filter B type", 1, 50],
+        ["DUIT0089", "duit train express (dtx)", "train express (dtx)", 1, 100],
+        ["DUIT0092", "poo poo box 2 way", "poo poo box 2 way", 1, 150],
+        ["DUIT0013 + DUIT0090", "A D Board BR + All day rack", "all day board brown and white cover + all day rack", 2, 300],
+        ["DUIT0013 + DUIT0003", "A D Board BR + BoxCW", "all day board brown and white cover + poo poo box cube white", 2, 200],
+        ["DUIT0067 + DUIT0090", "A D Board WH + All day rack", "all day board white and white cover + all day rack", 2, 300],
+        ["DUIT0067 + DUIT0031", "A D Board WH + anti-bug-light", "all day board white and white cover + Antibug light", 2, 200],
+        ["DUIT0067 + DUIT0087", "A D Board WH + floating bathtub", "all day board white and white cover + floating bathtub", 2, 200],
+        ["DUIT0090 + DUIT0031", "All day rack + anti-bug-light", "all day rack + Antibug light", 2, 300],
+        ["DUIT0095 + DUIT0034", "Bowl M + Daily White M", "Daily Table Ceramic Bowl White (M) + daily table (M) white", 2, 100],
+        ["DUIT0024 + DUIT0026", "Bowl M + Legs L", "The Table Ceramic Bowl White (M) + Leg (M) <- เรียก Legs L ในใบส่ง", 2, 70],
+        ["DUIT0023 + DUIT0030", "Bowl S + TB+Long M (4 cm.)", "The Table Ceramic Bowl White (S) + thetableplus, bowl(M), wood legs (L)", 2, 200],
+        ["DUIT0003 + DUIT0006", "BoxCW + ScoopW", "poo poo box cube white + poo poo scoop white (hole)", 2, 200],
+        ["DUIT0050 + DUIT0051", "Brush + Peek A Poo", "Peek a poo brush only + Peek a poo 2pcs set (include bridge)", 2, 200],
+        ["DUIT0065 + DUIT0025", "Daily Mushroom S + Legs S", "daily table (S) mushroom + Leg (S)", 2, 80],
+        ["DUIT0035 + DUIT0006", "Mat M + ScoopW", "poo poo mat white (M) + poo poo scoop white (hole)", 2, 80],
+        ["DUIT0080 + DUIT0006", "Mouse bot + ScoopW", "mouse bot set + poo poo scoop white (hole)", 2, 70],
+        ["DUIT0080 + DUIT0031", "Mouse bot + anti-bug-light", "mouse bot set + Antibug light", 2, 50],
+        ["DUIT0052 + DUIT0006", "Peanut Board + ScoopW", "peanut board + poo poo scoop white (hole)", 2, 200],
+        ["DUIT0045", "Soft Brush + anti-bug-light", "Soft Brush + Antibug light", 2, 70],
+        ["DUIT0077 + DUIT0031", "Waterpot + anti-bug-light", "waterpot + Antibug light", 2, 80],
+        ["DUIT0091 + DUIT0089", "banana brush + duit train express (dtx)", "banana brush + train express (dtx)", 2, 120],
+        ["DUIT0067 + DUIT0003 + DUIT0006", "A D Board WH + BoxCW + ScoopW", "all day board white and white cover + poo poo box cube white + poo poo scoop white (hole)", 3, 200],
+        ["DUIT0002 + DUIT0036 + DUIT0006", "BoxLW + Mat L + ScoopW", "poo poo box long white + poo poo mat white (L) + poo poo scoop white (hole)", 3, 300]
       ]}
     };
     
     // Migration check for database update
-    if (localStorage.getItem('shipping_db_version') !== '3.0') {
+    if (localStorage.getItem('shipping_db_version') !== '4.0') {
       localStorage.setItem('shipping_excel_data', JSON.stringify(DEFAULT_EXCEL_DATA));
-      localStorage.setItem('shipping_db_version', '3.0');
+      localStorage.setItem('shipping_db_version', '4.0');
     }
 
     let PRODUCTS = JSON.parse(localStorage.getItem("shipping_products")) || DEFAULT_PRODUCTS;
@@ -605,9 +605,8 @@
       let data = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA;
       let sheet = data.sheets[data.activeSheet] || [];
       let opts = '<option value="">— เลือกสินค้า —</option>';
-      sheet.slice(1).forEach(r => { if(r[0]) opts += `<option value="${r[0]}">${r[0]}</option>`; });
+      sheet.slice(1).forEach(r => { if(r[2]) opts += `<option value="${r[2]}">[${r[0]}] ${r[2]}</option>`; });
       if(pSel) pSel.innerHTML = opts;
-      // Also use Excel items for Cart Selection
       if(cSel) cSel.innerHTML = opts;
     }
 
@@ -615,10 +614,10 @@
       const val = document.getElementById("pSel").value; if(!val) return resetCalcUI();
       let data = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA;
       const sheet = data.sheets[data.activeSheet]; if(!sheet) return;
-      const headers = sheet[0]; const row = sheet.find(r => r[0] === val); if(!row) return;
+      const headers = sheet[0]; const row = sheet.find(r => r[2] === val); if(!row) return;
       
       const collectIdx = headers.findIndex((h, i) => i > 0 && h.includes('ควรเก็บ'));
-      const qtyIdx = headers.findIndex((h, i) => i > 0 && h.includes('จำนวน') && h.includes('ชุด'));
+      const qtyIdx = headers.findIndex((h, i) => i > 0 && h.includes('จำนวน'));
       const countIdx = headers.findIndex((h, i) => i > 0 && h.includes('ครั้ง'));
       
       // Find prices based on zone
@@ -642,7 +641,7 @@
       }, "spx");
 
       document.getElementById("excelResult").style.display = "block";
-      document.getElementById("egProductName").innerText = val;
+      document.getElementById("egProductName").innerText = "[" + (row[0]||"") + "] " + val;
       document.getElementById("egCarrier").innerText = ID_MAP[bestCarrier] + " (ราคาดีที่สุด)";
       document.getElementById("egCarrier").className = "cbadge " + bestCarrier;
       
@@ -757,7 +756,7 @@
       let data = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA;
       let sheet = data.sheets[data.activeSheet] || [];
       let headers = sheet[0];
-      let row = sheet.find(r => r[0] === combinedName);
+      let row = sheet.find(r => r[2] === combinedName);
       
       if(row) {
         // Find best carrier from Guideline row
@@ -784,7 +783,7 @@
       
       const collectIdx = hs.findIndex(h => h.includes('ควรเก็บ'));
       const carriersIdx = hs.map((h, i) => CARRIERS.some(c => h.toLowerCase().includes(c)) ? i : -1).filter(i => i !== -1);
-      const displayIdx = [0, 1, collectIdx].filter(i => i !== -1);
+      const displayIdx = [0, 2, 3, 4].filter(i => i !== -1);
 
       thead.innerHTML = "<th>#</th>" + displayIdx.map(i => `<th class="${i===collectIdx?'highlight-collect':''}">${hs[i]}</th>`).join("") + CUSTOM_COLS.map((c, i) => `<th>${c} <button onclick="deleteCustomCol(${i})" style="border:none;background:none;color:var(--warn);cursor:pointer;">×</button></th>`).join("");
       
