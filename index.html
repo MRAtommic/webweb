@@ -349,7 +349,9 @@
             }
           </style>
         </div>
-        <button class="export-btn" style="width:100%; margin-top:20px; justify-content:center; background:var(--accent); color:white; border-radius:12px; font-weight:bold; font-size:1.1rem; padding:12px; transition: all 0.3s ease;" onclick="copySummaryToClipboard(event)">📋 คัดลอกสรุปส่งลูกค้า</button>
+        <div style="display:flex; justify-content:center; margin-top:16px;">
+          <button class="export-btn" style="background:var(--accent); color:white; border-radius:8px; font-weight:bold; font-size:0.9rem; padding:8px 20px; transition: all 0.3s ease;" onclick="copySummaryToClipboard(event)">คัดลอกสรุปส่งลูกค้า</button>
+        </div>
       </div>
 
       <div class="results" id="carrierResults">
@@ -668,15 +670,15 @@
       const qty = document.getElementById("egQty").innerText;
       const zone = document.getElementById("zone").options[document.getElementById("zone").selectedIndex].text;
       
-      const text = `📦 สรุปรายการจัดส่งสินค้า [Duit]\n` +
-                   `🔹 สินค้า: ${name}\n` +
-                   `🔹 จำนวน: ${qty} ชิ้น\n` +
-                   `🔹 ปลายทาง: ${zone}\n` +
-                   `💰 ค่าบริการจัดส่ง: ${price} บาท`;
+      const text = `สรุปรายการจัดส่งสินค้า [Duit]\n` +
+                   `สินค้า: ${name}\n` +
+                   `จำนวน: ${qty} ชิ้น\n` +
+                   `ปลายทาง: ${zone}\n` +
+                   `ค่าบริการจัดส่ง: ${price} บาท`;
                    
       navigator.clipboard.writeText(text).then(() => {
         const oldText = btn.innerHTML;
-        btn.innerHTML = "✅ คัดลอกเรียบร้อยแล้ว!";
+        btn.innerHTML = "คัดลอกเรียบร้อยแล้ว!";
         btn.style.background = "#10B981";
         setTimeout(() => {
           btn.innerHTML = oldText;
