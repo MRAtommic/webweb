@@ -331,7 +331,7 @@
         <div class="card-title" style="color: var(--accent); margin-bottom: 16px;">ข้อมูลแนะนำจาก Guideline</div>
         <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;">
           <div style="flex:1; min-width:200px;">
-            <div id="egProductName" style="font-size:1.5rem; font-weight:800; margin-bottom:12px; color:var(--text); line-height:1.2;">—</div>
+            <div id="egProductName" style="font-size:1.5rem; font-weight:800; margin-bottom:12px; color:var(--text); line-height:1.2; white-space: pre-wrap;">—</div>
             <div id="egCarrier" class="cbadge">—</div>
           </div>
           <div style="text-align:right; flex-grow:0;">
@@ -602,7 +602,7 @@
       }, "spx");
 
       document.getElementById("excelResult").style.display = "block";
-      document.getElementById("egProductName").innerText = val;
+      document.getElementById("egProductName").innerText = val.includes(' + ') ? val.split(' + ').map(i => '- ' + i.trim()).join('\n') : val;
       document.getElementById("egCarrier").innerText = ID_MAP[bestCarrier] + " (ราคาดีที่สุด)";
       document.getElementById("egCarrier").className = "cbadge " + bestCarrier;
       
@@ -779,8 +779,11 @@
         const originalRi = sheet.findIndex(r => r === row);
         let minPrice = Math.min(...carriersIdx.map(ci => parseFloat(row[ci]) || Infinity).filter(p => p > 0));
         return `<tr><td class="idx">${((currentSummaryPage-1)*PAGE_SIZE) + idx + 1}</td>` + displayIdx.map(ci => {
-          const v = row[ci]; const p = parseFloat(v);
+          let v = row[ci]; const p = parseFloat(v);
           const isBest = carriersIdx.includes(ci) && p === minPrice && p > 0;
+          if (ci === 1 && typeof v === 'string' && v.includes(' + ')) {
+            v = v.split(' + ').map(i => '- ' + i.trim()).join('<br>');
+          }
           return `<td class="${isBest?'best':''} ${ci===collectIdx?'highlight-collect':''}">${v}</td>`;
         }).join("") + CUSTOM_COLS.map((_, ci) => `<td><input value="${CUSTOM_DATA[`${originalRi}_${ci}`]||''}" onchange="saveCustomData(${originalRi},${ci},this.value)" class="rate-input" style="width:100%!important;border:none;background:transparent;"></td>`).join("") + "</tr>";
       }).join('');
