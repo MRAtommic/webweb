@@ -340,12 +340,12 @@
           </div>
         </div>
         <div class="card">
-          <div class="card-title">หรือกรอกข้อมูลเอง</div>
-          <div class="fg"><label>น้ำหนัก (kg)</label><input type="number" id="mW" placeholder="เช่น 1.5" step="0.1" oninput="onManual()"></div>
-          <div class="dim-row">
-            <div class="fg"><label>กว้าง (cm)</label><input type="number" id="mWd" placeholder="ก" oninput="onManual()"></div>
-            <div class="fg"><label>ยาว (cm)</label><input type="number" id="mLn" placeholder="ย" oninput="onManual()"></div>
-            <div class="fg"><label>สูง (cm)</label><input type="number" id="mHt" placeholder="ส" oninput="onManual()"></div>
+          <div class="card-title">ราคาค่าจัดส่งรายขนส่ง</div>
+          <div class="results" id="carrierResults" style="margin-bottom:0; display:grid; grid-template-columns: 1fr; gap:8px;">
+            <div class="rc spx" id="cSPX" style="padding:10px;"><div class="rc-label">SPX Express</div><div class="rc-price" id="pSPX" style="font-size:1.4rem;">—<small> ฿</small></div><div class="rc-sub" id="dSPX">เลือกสินค้า</div></div>
+            <div class="rc flash" id="cFlash" style="padding:10px;"><div class="rc-label">Flash Express</div><div class="rc-price" id="pFlash" style="font-size:1.4rem;">—<small> ฿</small></div><div class="rc-sub" id="dFlash">เลือกสินค้า</div></div>
+            <div class="rc kerry" id="cKerry" style="padding:10px;"><div class="rc-label">Kerry Express</div><div class="rc-price" id="pKerry" style="font-size:1.4rem;">—<small> ฿</small></div><div class="rc-sub" id="dKerry">เลือกสินค้า</div></div>
+            <div class="rc jt" id="cJT" style="padding:10px;"><div class="rc-label">J&T Express</div><div class="rc-price" id="pJT" style="font-size:1.4rem;">—<small> ฿</small></div><div class="rc-sub" id="dJT">เลือกสินค้า</div></div>
           </div>
         </div>
       </div>
@@ -377,13 +377,7 @@
         </div>
       </div>
 
-      <div class="results" id="carrierResults">
-        <div class="rc spx" id="cSPX"><div class="rc-label">SPX Express</div><div class="rc-price" id="pSPX">—<small> ฿</small></div><div class="rc-sub" id="dSPX">เลือกสินค้า</div></div>
-        <div class="rc flash" id="cFlash"><div class="rc-label">Flash Express</div><div class="rc-price" id="pFlash">—<small> ฿</small></div><div class="rc-sub" id="dFlash">เลือกสินค้า</div></div>
-        <div class="rc kerry" id="cKerry"><div class="rc-label">Kerry Express</div><div class="rc-price" id="pKerry">—<small> ฿</small></div><div class="rc-sub" id="dKerry">เลือกสินค้า</div></div>
-        <div class="rc jt" id="cJT"><div class="rc-label">J&T Express</div><div class="rc-price" id="pJT">—<small> ฿</small></div><div class="rc-sub" id="dJT">เลือกสินค้า</div></div>
-        <div class="rc aramex" id="cAramex"><div class="rc-label">Aramex</div><div class="rc-price" id="pAramex">—<small> ฿</small></div><div class="rc-sub" id="dAramex">ไม่รองรับในไทย</div></div>
-      </div>
+      <div id="carrierResultsFallback" style="display:none;"></div>
 
       <div class="card">
         <div class="summary-header-row">
@@ -418,6 +412,16 @@
         <div id="tc-jt" class="tc"></div>
         <div id="tc-aramex" class="tc"></div>
         <div style="margin-top:24px; display:flex; justify-content:center;"><button class="page-btn" style="color:var(--warn); border-color:var(--warn);" onclick="resetRates()">รีเซ็ตค่าเริ่มต้นทั้งหมด</button></div>
+      </div>
+
+      <div class="card" style="margin-top:24px;">
+        <div class="card-title">คำนวณค่าส่งจากขนาด/น้ำหนักเอง</div>
+        <div class="fg"><label>น้ำหนัก (kg)</label><input type="number" id="mW" placeholder="เช่น 1.5" step="0.1" oninput="onManual()"></div>
+        <div class="dim-row">
+          <div class="fg"><label>กว้าง (cm)</label><input type="number" id="mWd" placeholder="ก" oninput="onManual()"></div>
+          <div class="fg"><label>ยาว (cm)</label><input type="number" id="mLn" placeholder="ย" oninput="onManual()"></div>
+          <div class="fg"><label>สูง (cm)</label><input type="number" id="mHt" placeholder="ส" oninput="onManual()"></div>
+        </div>
       </div>
     </div>
 
