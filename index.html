@@ -1256,7 +1256,7 @@
       let opts = '<option value="">— เลือกสินค้า —</option>';
       sheet.slice(1).forEach(r => {
         if (r[1]) {
-          let text = r[1].includes(' + ') ? r[1].split(' + ').map(i => '- ' + i.trim()).join(' ') : '- ' + r[1];
+          let text = r[1].includes(' + ') ? r[1].split(' + ').map(i => '- ' + i.trim()).join(' ') : r[1];
           opts += `<option value="${r[1]}">${text}</option>`;
         }
       });
@@ -1303,7 +1303,7 @@
       if (isBundle) {
         displayTitle = val.split(' + ').map(i => '- ' + i.trim()).join('\n');
       } else {
-        displayTitle = '- ' + val;
+        displayTitle = val;
       }
       
       document.getElementById("egProductName").innerText = displayTitle;
@@ -1527,8 +1527,6 @@
           if (ci === 1 && typeof v === 'string') {
             if (v.includes(' + ')) {
               v = v.split(' + ').map(i => '- ' + i.trim()).join('<br>');
-            } else {
-              v = '- ' + v;
             }
           }
           return `<td class="${isBest ? 'best' : ''} ${ci === collectIdx ? 'highlight-collect' : ''}">${v}</td>`;
