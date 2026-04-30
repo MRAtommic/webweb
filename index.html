@@ -988,13 +988,7 @@
         </div>
       </div>
 
-      <div class="results" id="carrierResults" style="margin-top:24px;">
-        <div class="rc spx" id="cSPX"><div class="rc-label">SPX Express</div><div class="rc-price" id="pSPX">—<small> ฿</small></div><div class="rc-sub" id="dSPX">เลือกสินค้า</div></div>
-        <div class="rc flash" id="cFlash"><div class="rc-label">Flash Express</div><div class="rc-price" id="pFlash">—<small> ฿</small></div><div class="rc-sub" id="dFlash">เลือกสินค้า</div></div>
-        <div class="rc kerry" id="cKerry"><div class="rc-label">Kerry Express</div><div class="rc-price" id="pKerry">—<small> ฿</small></div><div class="rc-sub" id="dKerry">เลือกสินค้า</div></div>
-        <div class="rc jt" id="cJT"><div class="rc-label">J&T Express</div><div class="rc-price" id="pJT">—<small> ฿</small></div><div class="rc-sub" id="dJT">เลือกสินค้า</div></div>
-        <div class="rc aramex" id="cAramex"><div class="rc-label">Aramex</div><div class="rc-price" id="pAramex">—<small> ฿</small></div><div class="rc-sub" id="dAramex">ไม่รองรับในไทย</div></div>
-      </div>
+      <div id="carrierResultsFallback" style="display:none;"></div>
 
       <div id="carrierResultsFallback" style="display:none;"></div>
 
@@ -1053,6 +1047,14 @@
           <div class="fg"><label>สูง (cm)</label><input type="number" id="mHt" placeholder="ส" oninput="onManual()">
           </div>
         </div>
+      </div>
+
+      <div class="results" id="carrierResults" style="margin-top:24px;">
+        <div class="rc spx" id="cSPX"><div class="rc-label">SPX Express</div><div class="rc-price" id="pSPX">—<small> ฿</small></div><div class="rc-sub" id="dSPX">เลือกสินค้า/ระบุขนาด</div></div>
+        <div class="rc flash" id="cFlash"><div class="rc-label">Flash Express</div><div class="rc-price" id="pFlash">—<small> ฿</small></div><div class="rc-sub" id="dFlash">เลือกสินค้า/ระบุขนาด</div></div>
+        <div class="rc kerry" id="cKerry"><div class="rc-label">Kerry Express</div><div class="rc-price" id="pKerry">—<small> ฿</small></div><div class="rc-sub" id="dKerry">เลือกสินค้า/ระบุขนาด</div></div>
+        <div class="rc jt" id="cJT"><div class="rc-label">J&T Express</div><div class="rc-price" id="pJT">—<small> ฿</small></div><div class="rc-sub" id="dJT">เลือกสินค้า/ระบุขนาด</div></div>
+        <div class="rc aramex" id="cAramex"><div class="rc-label">Aramex</div><div class="rc-price" id="pAramex">—<small> ฿</small></div><div class="rc-sub" id="dAramex">ไม่รองรับในไทย</div></div>
       </div>
     </div>
 
