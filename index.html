@@ -48,9 +48,27 @@
       --card-hover-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; }
-    html, body { overflow-x: hidden; width: 100%; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      color: inherit;
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    html,
+    body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+
     body {
       background: var(--bg);
       color: var(--text);
@@ -60,8 +78,11 @@
       line-height: 1.5;
       transition: background 0.3s, color 0.3s;
     }
+
     @media (min-width: 768px) {
-      body { padding: 40px 20px 80px; }
+      body {
+        padding: 40px 20px 80px;
+      }
     }
 
     body::before {
@@ -76,218 +97,800 @@
       pointer-events: none;
     }
 
-    .wrap { width: 100%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; overflow-x: hidden; }
-
-    header { text-align: center; padding: 40px 0 30px; position: relative; }
-    .theme-toggle {
-      position: absolute; top: 20px; right: 0;
-      background: var(--s1); border: 1px solid var(--border); color: var(--text);
-      width: 44px; height: 44px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: all 0.2s; box-shadow: var(--card-shadow);
+    .wrap {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      overflow-x: hidden;
     }
-    .theme-toggle:hover { transform: rotate(15deg) scale(1.1); background: var(--s2); }
-    .theme-toggle svg { width: 20px; height: 20px; }
-    .icon-sun { display: none; }
-    .dark .icon-sun { display: block; }
-    .dark .icon-moon { display: none; }
+
+    header {
+      text-align: center;
+      padding: 40px 0 30px;
+      position: relative;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 0;
+      background: var(--s1);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: var(--card-shadow);
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(15deg) scale(1.1);
+      background: var(--s2);
+    }
+
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .icon-sun {
+      display: none;
+    }
+
+    .dark .icon-sun {
+      display: block;
+    }
+
+    .dark .icon-moon {
+      display: none;
+    }
 
     .eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--s2); border: 1px solid var(--border); border-radius: 20px;
-      padding: 6px 12px; font-size: 0.65rem; font-family: "IBM Plex Mono", monospace;
-      letter-spacing: 1px; color: var(--muted); margin-bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--s2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 0.65rem;
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 12px;
       max-width: 100%;
     }
-    .eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; animation: pulse 2s infinite; }
-    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); } }
 
-    h1 { font-size: 1.5rem; font-weight: 800; color: var(--text); letter-spacing: 0.5px; margin-bottom: 12px; line-height: 1.2; padding: 0 10px; }
-    @media (min-width: 768px) {
-      h1 { font-size: 2.8rem; letter-spacing: 0.5px; }
-    }
-    h1 em { color: var(--accent); font-style: normal; }
-    header p { color: var(--muted); font-size: 0.8rem; max-width: 600px; margin: 0 auto 24px; padding: 0 15px; }
-    @media (min-width: 768px) {
-      header p { font-size: 1rem; }
+    .eyebrow span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+      animation: pulse 2s infinite;
     }
 
-    .carriers-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+      }
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+      padding: 0 10px;
+    }
+
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 2.8rem;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    h1 em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 0.8rem;
+      max-width: 600px;
+      margin: 0 auto 24px;
+      padding: 0 15px;
+    }
+
+    @media (min-width: 768px) {
+      header p {
+        font-size: 1rem;
+      }
+    }
+
+    .carriers-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
     .cbadge {
-      display: flex; align-items: center; gap: 8px;
-      padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 700;
-      border: 1px solid var(--border); background: var(--s1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      background: var(--s1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
-    .cbadge:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-    .cbadge.spx { color: var(--spx); background: rgba(129, 140, 248, 0.1); border-color: rgba(129, 140, 248, 0.2); }
-    .cbadge.flash { color: var(--flash); background: rgba(251, 146, 60, 0.1); border-color: rgba(251, 146, 60, 0.2); }
-    .cbadge.kerry { color: var(--kerry); background: rgba(74, 222, 128, 0.1); border-color: rgba(74, 222, 128, 0.2); }
-    .cbadge.jt { color: var(--jt); background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.2); }
-    .cbadge.aramex { color: var(--aramex); background: rgba(251, 191, 36, 0.1); border-color: rgba(251, 191, 36, 0.2); }
 
-    .main-tabs { 
-      display: flex; gap: 4px; margin-bottom: 20px; padding: 4px; 
-      background: var(--s2); border-radius: 12px; width: 100%; 
-      overflow-x: auto; -webkit-overflow-scrolling: touch;
+    .cbadge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .cbadge.spx {
+      color: var(--spx);
+      background: rgba(129, 140, 248, 0.1);
+      border-color: rgba(129, 140, 248, 0.2);
+    }
+
+    .cbadge.flash {
+      color: var(--flash);
+      background: rgba(251, 146, 60, 0.1);
+      border-color: rgba(251, 146, 60, 0.2);
+    }
+
+    .cbadge.kerry {
+      color: var(--kerry);
+      background: rgba(74, 222, 128, 0.1);
+      border-color: rgba(74, 222, 128, 0.2);
+    }
+
+    .cbadge.jt {
+      color: var(--jt);
+      background: rgba(248, 113, 113, 0.1);
+      border-color: rgba(248, 113, 113, 0.2);
+    }
+
+    .cbadge.aramex {
+      color: var(--aramex);
+      background: rgba(251, 191, 36, 0.1);
+      border-color: rgba(251, 191, 36, 0.2);
+    }
+
+    .main-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+      padding: 4px;
+      background: var(--s2);
+      border-radius: 12px;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
     }
-    .main-tabs::-webkit-scrollbar { display: none; }
+
+    .main-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
     .main-tab {
-      padding: 8px 14px; border: none; background: transparent; border-radius: 8px;
-      color: var(--muted); cursor: pointer; font-weight: 700; font-family: inherit;
-      transition: all 0.3s; font-size: 0.75rem; display: flex; align-items: center; gap: 4px;
-      white-space: nowrap; flex-shrink: 0;
+      padding: 8px 14px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 700;
+      font-family: inherit;
+      transition: all 0.3s;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
+
     @media (min-width: 768px) {
-      .main-tabs { gap: 8px; padding: 6px; width: fit-content; margin-left: auto; margin-right: auto; }
-      .main-tab { padding: 10px 20px; font-size: 0.9rem; gap: 8px; }
+      .main-tabs {
+        gap: 8px;
+        padding: 6px;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .main-tab {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        gap: 8px;
+      }
     }
-    .main-tab.active { background: var(--s1); color: var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid var(--border); }
-    .main-tab:hover:not(.active) { color: var(--text); background: rgba(255,255,255,0.05); }
 
-    .view { display: none; animation: fadeIn 0.4s ease-out; }
-    .view.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .main-tab.active {
+      background: var(--s1);
+      color: var(--accent);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border: 1px solid var(--border);
+    }
 
-    .tc { display: none; }
-    .tc.active { display: block; }
-    .tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .main-tab:hover:not(.active) {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .view {
+      display: none;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .tc {
+      display: none;
+    }
+
+    .tc.active {
+      display: block;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
     .tab {
-      padding: 8px 16px; border: 1px solid var(--border); background: var(--s2); 
-      border-radius: 8px; color: var(--text); cursor: pointer; font-weight: 600;
-      transition: all 0.2s; font-size: 0.9rem;
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      background: var(--s2);
+      border-radius: 8px;
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+      font-size: 0.9rem;
     }
-    .tab:hover { background: var(--s1); border-color: var(--accent); }
-    .tab.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+    .tab:hover {
+      background: var(--s1);
+      border-color: var(--accent);
+    }
+
+    .tab.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
 
     .card {
-      background: var(--s1); border: 1px solid var(--border); border-radius: 16px;
-      padding: 15px; box-shadow: var(--card-shadow); margin-bottom: 12px;
-      transition: all 0.3s; width: 100%;
+      background: var(--s1);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 15px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 12px;
+      transition: all 0.3s;
+      width: 100%;
     }
+
     @media (min-width: 768px) {
-      .card { padding: 32px; margin-bottom: 24px; border-radius: 20px; }
+      .card {
+        padding: 32px;
+        margin-bottom: 24px;
+        border-radius: 20px;
+      }
     }
-    .card:hover { box-shadow: var(--card-hover-shadow); }
+
+    .card:hover {
+      box-shadow: var(--card-hover-shadow);
+    }
+
     .card-title {
-      font-size: 0.75rem; font-family: "IBM Plex Mono", monospace; letter-spacing: 2.5px;
-      text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 24px;
-      display: flex; align-items: center; gap: 10px;
+      font-size: 0.75rem;
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .card-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
 
-    .top-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
-    @media (max-width: 900px) { .top-grid { grid-template-columns: 1fr; } }
-
-    .fg { margin-bottom: 20px; }
-    label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-    select, input {
-      width: 100%; background: var(--s2); border: 2px solid transparent; border-radius: 12px;
-      color: var(--text); font-family: inherit; font-size: 1rem; padding: 12px 16px;
-      outline: none; transition: all 0.2s;
+    .card-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
     }
-    select:focus, input:focus { border-color: var(--accent); background: var(--s1); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
 
-    .dim-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .top-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
 
-    .results { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
-    @media (min-width: 480px) { .results { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 768px) { .results { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
-    @media (min-width: 1100px) { .results { grid-template-columns: repeat(5, 1fr); } }
+    @media (max-width: 900px) {
+      .top-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .fg {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    select,
+    input {
+      width: 100%;
+      background: var(--s2);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 12px 16px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    select:focus,
+    input:focus {
+      border-color: var(--accent);
+      background: var(--s1);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
+
+    .dim-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 480px) {
+      .results {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .results {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+    }
+
+    @media (min-width: 1100px) {
+      .results {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
 
     .rc {
-      background: var(--s1); border: 1px solid var(--border); border-radius: 20px;
-      padding: 24px; text-align: center; transition: all 0.3s; position: relative; overflow: hidden;
+      background: var(--s1);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      text-align: center;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
     }
-    .rc::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--muted); }
-    .rc.spx::before { background: var(--spx); }
-    .rc.flash::before { background: var(--flash); }
-    .rc.kerry::before { background: var(--kerry); }
-    .rc.jt::before { background: var(--jt); }
-    .rc.aramex::before { background: var(--aramex); }
 
-    .rc.best { border-color: var(--accent); transform: scale(1.05); z-index: 2; box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15); }
+    .rc::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--muted);
+    }
+
+    .rc.spx::before {
+      background: var(--spx);
+    }
+
+    .rc.flash::before {
+      background: var(--flash);
+    }
+
+    .rc.kerry::before {
+      background: var(--kerry);
+    }
+
+    .rc.jt::before {
+      background: var(--jt);
+    }
+
+    .rc.aramex::before {
+      background: var(--aramex);
+    }
+
+    .rc.best {
+      border-color: var(--accent);
+      transform: scale(1.05);
+      z-index: 2;
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15);
+    }
+
     .rc.best::after {
-      content: "คุ้มที่สุด"; position: absolute; top: 12px; right: -25px;
-      background: var(--accent); color: white; font-size: 0.65rem; font-weight: 800;
-      padding: 4px 30px; transform: rotate(45deg);
+      content: "คุ้มที่สุด";
+      position: absolute;
+      top: 12px;
+      right: -25px;
+      background: var(--accent);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 4px 30px;
+      transform: rotate(45deg);
     }
 
-    .rc-label { font-size: 0.7rem; font-family: "IBM Plex Mono", monospace; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
-    .rc-price { font-size: 2.2rem; font-weight: 800; font-family: "IBM Plex Mono", monospace; color: var(--text); line-height: 1; }
-    .rc-price small { font-size: 1rem; font-weight: 400; color: var(--muted); margin-left: 4px; }
-    .rc-sub { font-size: 0.8rem; color: var(--muted); margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border); }
+    .rc-label {
+      font-size: 0.7rem;
+      font-family: "IBM Plex Mono", monospace;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
 
-    .st-wrap { border-radius: 16px; border: 1px solid var(--border); overflow-x: auto; background: var(--s1); -webkit-overflow-scrolling: touch; }
-    .st { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 600px; }
-    @media (min-width: 768px) { .st { font-size: 0.95rem; } }
-    .st th { background: #1e293b; color: #f8fafc; padding: 12px 16px; text-align: left; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; }
-    .dark .st th { background: #0f172a; }
-    .st td { padding: 12px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; }
-    .st tr:last-child td { border-bottom: none; }
-    .st tr:hover td { background: var(--s2); }
+    .rc-price {
+      font-size: 2.2rem;
+      font-weight: 800;
+      font-family: "IBM Plex Mono", monospace;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .rc-price small {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-left: 4px;
+    }
+
+    .rc-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .st-wrap {
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow-x: auto;
+      background: var(--s1);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .st {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      min-width: 600px;
+    }
+
+    @media (min-width: 768px) {
+      .st {
+        font-size: 0.95rem;
+      }
+    }
+
+    .st th {
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dark .st th {
+      background: #0f172a;
+    }
+
+    .st td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .st tr:last-child td {
+      border-bottom: none;
+    }
+
+    .st tr:hover td {
+      background: var(--s2);
+    }
 
     /* Mobile specific table adjustments */
     @media (max-width: 600px) {
-      .st th, .st td { padding: 10px 12px; }
-      .st { min-width: 500px; }
+
+      .st th,
+      .st td {
+        padding: 10px 12px;
+      }
+
+      .st {
+        min-width: 500px;
+      }
     }
 
-    .highlight-collect { background: linear-gradient(135deg, rgba(234, 88, 12, 0.08), rgba(249, 115, 22, 0.04)) !important; color: #ea580c !important; font-weight: 700; border-left: 4px solid #ea580c !important; }
-    .best-cell { background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.04)) !important; color: #16a34a !important; font-weight: 700; }
-    .best-badge { background: #22c55e; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 900; margin-left: 8px; }
+    .highlight-collect {
+      background: linear-gradient(135deg, rgba(234, 88, 12, 0.08), rgba(249, 115, 22, 0.04)) !important;
+      color: #ea580c !important;
+      font-weight: 700;
+      border-left: 4px solid #ea580c !important;
+    }
 
-    .summary-header-row { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 20px; gap: 12px; }
+    .best-cell {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.04)) !important;
+      color: #16a34a !important;
+      font-weight: 700;
+    }
+
+    .best-badge {
+      background: #22c55e;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      font-weight: 900;
+      margin-left: 8px;
+    }
+
+    .summary-header-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      gap: 12px;
+    }
+
     @media (min-width: 600px) {
-      .summary-header-row { flex-direction: row; justify-content: space-between; align-items: center; gap: 20px; }
+      .summary-header-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+      }
     }
-    .pagination-container { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 24px; flex-wrap: wrap; }
-    @media (min-width: 480px) { .pagination-container { gap: 16px; } }
-    .page-btn { 
-      padding: 10px 24px; border-radius: 12px; border: 1px solid var(--border); 
-      background: var(--s1); color: var(--text); cursor: pointer; font-weight: 700; 
+
+    .pagination-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    @media (min-width: 480px) {
+      .pagination-container {
+        gap: 16px;
+      }
+    }
+
+    .page-btn {
+      padding: 10px 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--s1);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 700;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
-    .page-btn:hover:not(:disabled) { 
-      background: var(--accent); color: white; border-color: var(--accent);
-      transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+
+    .page-btn:hover:not(:disabled) {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
     }
-    .page-btn:disabled { opacity: 0.3; cursor: not-allowed; filter: grayscale(1); }
 
-    .info-rows { background: var(--s2); border-radius: 12px; padding: 16px; margin-top: 20px; }
-    .ir { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px; }
-    .ir:last-child { margin-bottom: 0; }
-    .ir span:first-child { color: var(--muted); }
-    .ir .v { font-weight: 700; color: var(--text); }
+    .page-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      filter: grayscale(1);
+    }
 
-    .export-btn { 
-      background: var(--accent); color: white; border: none; padding: 10px 18px; 
-      border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; 
-      align-items: center; gap: 6px; transition: all 0.2s; font-size: 0.85rem;
+    .info-rows {
+      background: var(--s2);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 20px;
+    }
+
+    .ir {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+    }
+
+    .ir:last-child {
+      margin-bottom: 0;
+    }
+
+    .ir span:first-child {
+      color: var(--muted);
+    }
+
+    .ir .v {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .export-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      font-size: 0.85rem;
       white-space: nowrap;
     }
-    .export-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
-    @media (max-width: 600px) {
-      .export-btn { padding: 8px 12px; font-size: 0.75rem; }
+
+    .export-btn:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
     }
 
-    input.rate-input { width: 70px !important; text-align: right; padding: 4px 8px; }
+    @media (max-width: 600px) {
+      .export-btn {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+      }
+    }
+
+    input.rate-input {
+      width: 70px !important;
+      text-align: right;
+      padding: 4px 8px;
+    }
 
     /* Global Search Styling */
-    .search-container { margin: 0 0 24px 0; position: relative; }
-    .search-results-list {
-      position: absolute; top: 100%; left: 0; right: 0; background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; z-index: 1000; max-height: 350px; overflow-y: auto;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.3); margin-top: 8px; backdrop-filter: blur(10px);
+    .search-container {
+      margin: 0 0 24px 0;
+      position: relative;
     }
-    .search-result-item { padding: 14px 20px; cursor: pointer; border-bottom: 1px solid var(--border); transition: all 0.2s; font-size: 0.95rem; color: var(--text); }
-    .search-result-item:hover { background: var(--s2); color: var(--accent); padding-left: 25px; }
-    .search-result-item:last-child { border-bottom: none; }
-    #mainSearchInput { height: 56px; font-size: 1.1rem; border-radius: 16px; border: 2px solid var(--border); padding-left: 45px; background: var(--card); transition: border-color 0.3s; width: 100%; color: var(--text); }
-    #mainSearchInput:focus { border-color: var(--accent); outline: none; }
-    .search-icon-abs { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; z-index: 10; }
+
+    .search-results-list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      z-index: 1000;
+      max-height: 350px;
+      overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      margin-top: 8px;
+      backdrop-filter: blur(10px);
+    }
+
+    .search-result-item {
+      padding: 14px 20px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.2s;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .search-result-item:hover {
+      background: var(--s2);
+      color: var(--accent);
+      padding-left: 25px;
+    }
+
+    .search-result-item:last-child {
+      border-bottom: none;
+    }
+
+    #mainSearchInput {
+      height: 56px;
+      font-size: 1.1rem;
+      border-radius: 16px;
+      border: 2px solid var(--border);
+      padding-left: 45px;
+      background: var(--card);
+      transition: border-color 0.3s;
+      width: 100%;
+      color: var(--text);
+    }
+
+    #mainSearchInput:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .search-icon-abs {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+      z-index: 10;
+    }
   </style>
 </head>
 
@@ -295,12 +898,25 @@
   <div class="wrap">
     <header>
       <button class="theme-toggle" onclick="toggleTheme()" title="สลับโหมด มืด/สว่าง">
-        <svg class="icon-moon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-        <svg class="icon-sun" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <svg class="icon-moon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="icon-sun" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
       </button>
       <div class="eyebrow"><span></span>DUIT LOGISTICS SYSTEM — TH</div>
       <h1>คำนวณ<em>ค่าจัดส่ง</em>สินค้า</h1>
-      <p>เปรียบเทียบอัตราค่าส่งแบบเรียลไทม์ คำนวณ Volumetric Weight อัตโนมัติ พร้อมฐานข้อมูล Guideline สำหรับแบรนด์ Duit</p>
+      <p>เปรียบเทียบอัตราค่าส่งแบบเรียลไทม์ คำนวณ Volumetric Weight อัตโนมัติ พร้อมฐานข้อมูล Guideline สำหรับแบรนด์ Duit
+      </p>
       <div class="carriers-row">
         <div class="cbadge spx">SPX Express</div>
         <div class="cbadge flash">Flash Express</div>
@@ -319,8 +935,8 @@
     <!-- Global Search -->
     <div class="search-container" id="mainSearchContainer">
       <div class="fg" style="margin-bottom:0;">
-        <span class="search-icon-abs">🔍</span>
-        <input type="text" id="mainSearchInput" placeholder="พิมพ์ชื่อสินค้าเพื่อค้นหาราคาแนะนำ..." oninput="handleMainSearch()">
+        <input type="text" id="mainSearchInput" placeholder="พิมพ์ชื่อสินค้าเพื่อค้นหาราคาแนะนำ..."
+          oninput="handleMainSearch()">
       </div>
       <div id="mainSearchResults" class="search-results-list" style="display:none;"></div>
     </div>
@@ -330,8 +946,14 @@
       <div class="top-grid">
         <div class="card">
           <div class="card-title">เลือกสินค้าจากฐานข้อมูล</div>
-          <div class="fg"><label>รายการสินค้า</label><select id="pSel" onchange="onPick()"><option value="">— เลือกสินค้า —</option></select></div>
-          <div class="fg"><label>ปลายทาง</label><select id="zone" onchange="onPick()"><option value="metro">กรุงเทพฯ / ปริมณฑล</option><option value="province" selected>ต่างจังหวัด (ทั่วไป)</option><option value="remote">พื้นที่ห่างไกล / เกาะ</option></select></div>
+          <div class="fg"><label>รายการสินค้า</label><select id="pSel" onchange="onPick()">
+              <option value="">— เลือกสินค้า —</option>
+            </select></div>
+          <div class="fg"><label>ปลายทาง</label><select id="zone" onchange="onPick()">
+              <option value="metro">กรุงเทพฯ / ปริมณฑล</option>
+              <option value="province" selected>ต่างจังหวัด (ทั่วไป)</option>
+              <option value="remote">พื้นที่ห่างไกล / เกาะ</option>
+            </select></div>
           <div id="pInfo" style="display:none" class="info-rows">
             <div class="ir"><span>น้ำหนักจริง</span><span class="v" id="iW">—</span></div>
             <div class="ir"><span>ขนาด ก×ย×ส</span><span class="v" id="iD">—</span></div>
@@ -339,42 +961,40 @@
             <div class="ir"><span>คิดราคาที่</span><span class="v" id="iC">—</span></div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-title">ราคาค่าจัดส่งรายขนส่ง</div>
-          <div class="results" id="carrierResults" style="margin-bottom:0; display:grid; grid-template-columns: 1fr; gap:8px;">
-            <div class="rc spx" id="cSPX" style="padding:10px;"><div class="rc-label">SPX Express</div><div class="rc-price" id="pSPX" style="font-size:1.4rem;">—<small> ฿</small></div><div class="rc-sub" id="dSPX">เลือกสินค้า</div></div>
-            <div class="rc flash" id="cFlash" style="padding:10px;"><div class="rc-label">Flash Express</div><div class="rc-price" id="pFlash" style="font-size:1.4rem;">—<small> ฿</small></div><div class="rc-sub" id="dFlash">เลือกสินค้า</div></div>
-            <div class="rc kerry" id="cKerry" style="padding:10px;"><div class="rc-label">Kerry Express</div><div class="rc-price" id="pKerry" style="font-size:1.4rem;">—<small> ฿</small></div><div class="rc-sub" id="dKerry">เลือกสินค้า</div></div>
-            <div class="rc jt" id="cJT" style="padding:10px;"><div class="rc-label">J&T Express</div><div class="rc-price" id="pJT" style="font-size:1.4rem;">—<small> ฿</small></div><div class="rc-sub" id="dJT">เลือกสินค้า</div></div>
+        </div>
+        <div id="excelResult" class="card" style="border: 2px solid var(--accent); background: rgba(37,99,235,0.04); display: flex; flex-direction: column; justify-content: center; min-height: 250px;">
+          <div id="egPlaceholder" style="text-align: center; color: var(--muted); padding: 40px;">
+            <div style="font-size: 3rem; margin-bottom: 16px;">📦</div>
+            <div style="font-weight: 700;">กรุณาเลือกสินค้าเพื่อดูสรุป Guideline</div>
+          </div>
+          <div id="egContent" style="display:none;">
+            <div class="card-title" style="color: var(--accent); margin-bottom: 16px;">ข้อมูลแนะนำจาก Guideline</div>
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;">
+              <div style="flex:1; min-width:180px;">
+                <div id="egProductName" style="font-size:1.4rem; font-weight:800; margin-bottom:12px; color:var(--text); line-height:1.2; white-space: pre-wrap;">—</div>
+                <div id="egCarrier" class="cbadge">—</div>
+              </div>
+              <div style="text-align:right; flex-grow:0;">
+                <div style="font-size:0.7rem; color:var(--muted); margin-bottom:4px; font-family:'IBM Plex Mono'; letter-spacing:1px; text-transform:uppercase;">ราคาแนะนำเก็บลูกค้า</div>
+                <div id="egPrice" style="font-size:2.8rem; font-weight:800; font-family:'IBM Plex Mono'; color: var(--accent); line-height:1;">0<small style="font-size:1rem; margin-left:4px;">฿</small></div>
+                <div class="info-rows" style="margin-top:12px; background:transparent; padding:0; align-items:flex-end;">
+                  <div class="ir" style="gap:15px; font-size:0.75rem;"><span>จำนวนสินค้า</span><span class="v" id="egQty">—</span></div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:center; margin-top:24px;">
+              <button class="export-btn" style="background:var(--accent); color:white; border-radius:12px; font-weight:bold; font-size:1rem; padding:12px 24px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37,99,235,0.3);" onclick="copySummaryToClipboard(event)">คัดลอกสรุปส่งลูกค้า</button>
+            </div>
           </div>
         </div>
       </div>
 
-      <div id="excelResult" class="card" style="display:none; border: 2px solid var(--accent); background: rgba(37,99,235,0.03); padding: 24px;">
-        <div class="card-title" style="color: var(--accent); margin-bottom: 16px;">ข้อมูลแนะนำจาก Guideline</div>
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap;">
-          <div style="flex:1; min-width:200px;">
-            <div id="egProductName" style="font-size:1.5rem; font-weight:800; margin-bottom:12px; color:var(--text); line-height:1.2; white-space: pre-wrap;">—</div>
-            <div id="egCarrier" class="cbadge">—</div>
-          </div>
-          <div style="text-align:right; flex-grow:0;">
-            <div style="font-size:0.7rem; color:var(--muted); margin-bottom:4px; font-family:'IBM Plex Mono'; letter-spacing:1px; text-transform:uppercase;">ราคาแนะนำเก็บลูกค้า</div>
-            <div id="egPrice" style="font-size:2.8rem; font-weight:800; font-family:'IBM Plex Mono'; color:var(--accent); line-height:1;">0<small style="font-size:1rem; margin-left:4px;">฿</small></div>
-            <div class="info-rows" style="margin-top:12px; background:transparent; padding:0; align-items:flex-end;">
-              <div class="ir" style="gap:15px; font-size:0.75rem;"><span>จำนวนสินค้า</span><span class="v" id="egQty">—</span></div>
-            </div>
-          </div>
-          <style>
-            @media (min-width: 768px) {
-              #egPrice { font-size: 3.8rem !important; }
-              #egPrice small { font-size: 1.4rem !important; }
-              .ir { font-size: 0.85rem !important; }
-            }
-          </style>
-        </div>
-        <div style="display:flex; justify-content:center; margin-top:16px;">
-          <button class="export-btn" style="background:var(--accent); color:white; border-radius:8px; font-weight:bold; font-size:0.9rem; padding:8px 20px; transition: all 0.3s ease;" onclick="copySummaryToClipboard(event)">คัดลอกสรุปส่งลูกค้า</button>
-        </div>
+      <div class="results" id="carrierResults" style="margin-top:24px;">
+        <div class="rc spx" id="cSPX"><div class="rc-label">SPX Express</div><div class="rc-price" id="pSPX">—<small> ฿</small></div><div class="rc-sub" id="dSPX">เลือกสินค้า</div></div>
+        <div class="rc flash" id="cFlash"><div class="rc-label">Flash Express</div><div class="rc-price" id="pFlash">—<small> ฿</small></div><div class="rc-sub" id="dFlash">เลือกสินค้า</div></div>
+        <div class="rc kerry" id="cKerry"><div class="rc-label">Kerry Express</div><div class="rc-price" id="pKerry">—<small> ฿</small></div><div class="rc-sub" id="dKerry">เลือกสินค้า</div></div>
+        <div class="rc jt" id="cJT"><div class="rc-label">J&T Express</div><div class="rc-price" id="pJT">—<small> ฿</small></div><div class="rc-sub" id="dJT">เลือกสินค้า</div></div>
+        <div class="rc aramex" id="cAramex"><div class="rc-label">Aramex</div><div class="rc-price" id="pAramex">—<small> ฿</small></div><div class="rc-sub" id="dAramex">ไม่รองรับในไทย</div></div>
       </div>
 
       <div id="carrierResultsFallback" style="display:none;"></div>
@@ -383,12 +1003,18 @@
         <div class="summary-header-row">
           <div class="card-title" style="margin-bottom:0;">Guideline สรุปค่าจัดส่ง – แบรนด์ Duit</div>
           <div style="display:flex; align-items:center; gap:12px;">
-            <input type="text" id="sSearch" onkeyup="renderSummary()" placeholder="ค้นหาชื่อสินค้า..." style="width:250px;">
+            <input type="text" id="sSearch" onkeyup="renderSummary()" placeholder="ค้นหาชื่อสินค้า..."
+              style="width:250px;">
             <button class="export-btn" onclick="addCustomCol()">+ เพิ่มคอลัมน์เอง</button>
           </div>
         </div>
         <div class="st-wrap">
-          <table class="st"><thead id="sThead"><tr id="sTheadRow"></tr></thead><tbody id="sTbody"></tbody></table>
+          <table class="st">
+            <thead id="sThead">
+              <tr id="sTheadRow"></tr>
+            </thead>
+            <tbody id="sTbody"></tbody>
+          </table>
         </div>
         <div id="sPagination" class="pagination-container"></div>
       </div>
@@ -411,16 +1037,22 @@
         <div id="tc-kerry" class="tc"></div>
         <div id="tc-jt" class="tc"></div>
         <div id="tc-aramex" class="tc"></div>
-        <div style="margin-top:24px; display:flex; justify-content:center;"><button class="page-btn" style="color:var(--warn); border-color:var(--warn);" onclick="resetRates()">รีเซ็ตค่าเริ่มต้นทั้งหมด</button></div>
+        <div style="margin-top:24px; display:flex; justify-content:center;"><button class="page-btn"
+            style="color:var(--warn); border-color:var(--warn);"
+            onclick="resetRates()">รีเซ็ตค่าเริ่มต้นทั้งหมด</button></div>
       </div>
 
       <div class="card" style="margin-top:24px;">
         <div class="card-title">คำนวณค่าส่งจากขนาด/น้ำหนักเอง</div>
-        <div class="fg"><label>น้ำหนัก (kg)</label><input type="number" id="mW" placeholder="เช่น 1.5" step="0.1" oninput="onManual()"></div>
+        <div class="fg"><label>น้ำหนัก (kg)</label><input type="number" id="mW" placeholder="เช่น 1.5" step="0.1"
+            oninput="onManual()"></div>
         <div class="dim-row">
-          <div class="fg"><label>กว้าง (cm)</label><input type="number" id="mWd" placeholder="ก" oninput="onManual()"></div>
-          <div class="fg"><label>ยาว (cm)</label><input type="number" id="mLn" placeholder="ย" oninput="onManual()"></div>
-          <div class="fg"><label>สูง (cm)</label><input type="number" id="mHt" placeholder="ส" oninput="onManual()"></div>
+          <div class="fg"><label>กว้าง (cm)</label><input type="number" id="mWd" placeholder="ก" oninput="onManual()">
+          </div>
+          <div class="fg"><label>ยาว (cm)</label><input type="number" id="mLn" placeholder="ย" oninput="onManual()">
+          </div>
+          <div class="fg"><label>สูง (cm)</label><input type="number" id="mHt" placeholder="ส" oninput="onManual()">
+          </div>
         </div>
       </div>
     </div>
@@ -439,12 +1071,18 @@
             <button class="page-btn" onclick="addExcelCol()">+ เพิ่มคอลัมน์</button>
           </div>
           <div style="display:flex; gap:12px;">
-            <input type="text" id="excelSearch" onkeyup="renderExcelTable()" placeholder="ค้นหาในตาราง..." style="width:250px;">
+            <input type="text" id="excelSearch" onkeyup="renderExcelTable()" placeholder="ค้นหาในตาราง..."
+              style="width:250px;">
             <button class="page-btn" onclick="exportExcelDB()">Export XLSX</button>
             <button class="page-btn" style="color:var(--warn);" onclick="resetExcelData()">ล้างข้อมูล</button>
           </div>
         </div>
-        <div class="st-wrap"><table class="st" id="excelTable"><thead></thead><tbody id="excelTbody"></tbody></table></div>
+        <div class="st-wrap">
+          <table class="st" id="excelTable">
+            <thead></thead>
+            <tbody id="excelTbody"></tbody>
+          </table>
+        </div>
         <div id="excelPagination" class="pagination-container"></div>
       </div>
     </div>
@@ -475,83 +1113,85 @@
 
     const DEFAULT_EXCEL_DATA = {
       activeSheet: 'ตารางอ้างอิง',
-      sheets: { 'ตารางอ้างอิง': [
-        ["ชุดสินค้า (ชื่อย่อ)", "ชื่อสินค้าจริง", "จำนวนสินค้า", "ค่าส่งที่ควรเก็บ"],
-        ["Soft Brush", "Soft Brush", 1, 50],
-        ["ScoopW", "poo poo scoop white (hole)", 1, 50],
-        ["Waterpot Filter A", "waterpot active carbon block filter A type", 1, 50],
-        ["BoxLW + ScoopW", "poo poo box long white + poo poo scoop white (hole)", 2, 250],
-        ["Daily Mushroom M", "daily table (M) mushroom", 1, 80],
-        ["Bowl S", "The Table Ceramic Bowl White (S)", 1, 50],
-        ["Legs L", "Leg (M) <- เรียก Legs L ในใบส่ง", 1, 50],
-        ["catthenon", "catthenon", 1, 200],
-        ["A D Board WH", "all day board white", 1, 100],
-        ["Bowl M", "The Table Ceramic Bowl White (M)", 1, 50],
-        ["Peanut Board", "peanut board", 1, 200],
-        ["anti-bug-light", "Antibug light", 1, 50],
-        ["ScoopW + poo poo box 2 way", "poo poo scoop white (hole) + poo poo box 2 way", 2, 150],
-        ["anti-bug-light + banana brush", "Antibug light + banana brush", 2, 80],
-        ["A D Board BR", "all day board brown", 1, 100],
-        ["BoxCW", "poo poo box cube white", 1, 200],
-        ["Daily White M", "daily table (M) white", 1, 80],
-        ["Mat M", "poo poo mat white (M)", 1, 80],
-        ["Non Slip sand cream", "non slip silicone mat sand cream", 1, 80],
-        ["Peek a poo Set", "Peek a poo 2pcs set (include bridge)", 1, 200],
-        ["Slow Feeder", "Slow feeder", 1, 50],
-        ["TB+Long M (4 cm.)", "thetableplus, bowl(M), wood legs (L)", 1, 200],
-        ["TB+Short S (3 cm.)", "thetableplus, bowl(S), wood legs (S)", 1, 200],
-        ["banana brush", "banana brush", 1, 50],
-        ["floating bathtub", "floating bathtub", 1, 150],
-        ["A D Basket + A D Board BR", "all day basket + all day board brown", 2, 150],
-        ["A D Basket + A D Board WH", "all day basket + all day board white", 2, 150],
-        ["A D Basket", "all day basket", 1, 80],
-        ["BoxLW", "poo poo box long white", 1, 200],
-        ["Dry Mat", "drymat", 1, 100],
-        ["Duit smile dental brush", "Duit smile dental brush (สินค้าแจกฟรี)", 1, 50],
-        ["Legs S", "Leg (S)", 1, 50],
-        ["Mat L", "poo poo mat white (L)", 1, 100],
-        ["Mouse bot", "mouse bot set", 1, 50],
-        ["Refil 62cm STDB", "standing board 62cm refil brown", 1, 75],
-        ["Stand Board", "standing board frame + Refil (White or Brown)", 1, 150],
-        ["Tray", "silicone tray", 1, 50],
-        ["Waterpot", "waterpot", 1, 80],
-        ["Waterpot Filter B", "waterpot active carbon block filter B type", 1, 50],
-        ["duit train express (dtx)", "train express (dtx)", 1, 100],
-        ["poo poo box 2 way", "poo poo box 2 way", 1, 150],
-        ["A D Board BR + All day rack", "all day board brown + all day rack", 2, 300],
-        ["A D Board BR + BoxCW", "all day board brown + poo poo box cube white", 2, 200],
-        ["A D Board WH + All day rack", "all day board white + all day rack", 2, 300],
-        ["A D Board WH + anti-bug-light", "all day board white + Antibug light", 2, 200],
-        ["A D Board WH + floating bathtub", "all day board white + floating bathtub", 2, 200],
-        ["All day rack + anti-bug-light", "all day rack + Antibug light", 2, 300],
-        ["Bowl M + Daily White M", "Daily Table Ceramic Bowl White (M) + daily table (M) white", 2, 100],
-        ["Bowl M + Legs L", "The Table Ceramic Bowl White (M) + Leg (M) <- เรียก Legs L ในใบส่ง", 2, 70],
-        ["Bowl S + TB+Long M (4 cm.)", "The Table Ceramic Bowl White (S) + thetableplus, bowl(M), wood legs (L)", 2, 200],
-        ["BoxCW + ScoopW", "poo poo box cube white + poo poo scoop white (hole)", 2, 200],
-        ["Brush + Peek A Poo", "Peek a poo brush only + Peek a poo 2pcs set (include bridge)", 2, 200],
-        ["Daily Mushroom S + Legs S", "daily table (S) mushroom + Leg (S)", 2, 80],
-        ["Mat M + ScoopW", "poo poo mat white (M) + poo poo scoop white (hole)", 2, 80],
-        ["Mouse bot + ScoopW", "mouse bot set + poo poo scoop white (hole)", 2, 70],
-        ["Mouse bot + anti-bug-light", "mouse bot set + Antibug light", 2, 50],
-        ["Peanut Board + ScoopW", "peanut board + poo poo scoop white (hole)", 2, 200],
-        ["Soft Brush + anti-bug-light", "Soft Brush + Antibug light", 2, 70],
-        ["Waterpot + anti-bug-light", "waterpot + Antibug light", 2, 80],
-        ["banana brush + duit train express (dtx)", "banana brush + train express (dtx)", 2, 120],
-        ["A D Board WH + BoxCW + ScoopW", "all day board white + poo poo box cube white + poo poo scoop white (hole)", 3, 200],
-        ["BoxLW + Mat L + ScoopW", "poo poo box long white + poo poo mat white (L) + poo poo scoop white (hole)", 3, 300],
-        ["-", "Table hammock", 1, 300],
-        ["-", "windown hammock", 1, 150],
-        ["-", "mini cat tower", 1, 500],
-        ["-", "City rover", 1, 500],
-        ["-", "tiramisu board 2", 1, 150],
-        ["-", "all scoop mint", 1, 50],
-        ["-", "all scoop white", 1, 50],
-        ["-", "Standing borad", 1, 150],
-        ["-", "Stool house", 1, 300],
-        ["-", "tiramisu board 3", 1, 300]
-      ]}
+      sheets: {
+        'ตารางอ้างอิง': [
+          ["ชุดสินค้า (ชื่อย่อ)", "ชื่อสินค้าจริง", "จำนวนสินค้า", "ค่าส่งที่ควรเก็บ"],
+          ["Soft Brush", "Soft Brush", 1, 50],
+          ["ScoopW", "poo poo scoop white (hole)", 1, 50],
+          ["Waterpot Filter A", "waterpot active carbon block filter A type", 1, 50],
+          ["BoxLW + ScoopW", "poo poo box long white + poo poo scoop white (hole)", 2, 250],
+          ["Daily Mushroom M", "daily table (M) mushroom", 1, 80],
+          ["Bowl S", "The Table Ceramic Bowl White (S)", 1, 50],
+          ["Legs L", "Leg (M) <- เรียก Legs L ในใบส่ง", 1, 50],
+          ["catthenon", "catthenon", 1, 200],
+          ["A D Board WH", "all day board white", 1, 100],
+          ["Bowl M", "The Table Ceramic Bowl White (M)", 1, 50],
+          ["Peanut Board", "peanut board", 1, 200],
+          ["anti-bug-light", "Antibug light", 1, 50],
+          ["ScoopW + poo poo box 2 way", "poo poo scoop white (hole) + poo poo box 2 way", 2, 150],
+          ["anti-bug-light + banana brush", "Antibug light + banana brush", 2, 80],
+          ["A D Board BR", "all day board brown", 1, 100],
+          ["BoxCW", "poo poo box cube white", 1, 200],
+          ["Daily White M", "daily table (M) white", 1, 80],
+          ["Mat M", "poo poo mat white (M)", 1, 80],
+          ["Non Slip sand cream", "non slip silicone mat sand cream", 1, 80],
+          ["Peek a poo Set", "Peek a poo 2pcs set (include bridge)", 1, 200],
+          ["Slow Feeder", "Slow feeder", 1, 50],
+          ["TB+Long M (4 cm.)", "thetableplus, bowl(M), wood legs (L)", 1, 200],
+          ["TB+Short S (3 cm.)", "thetableplus, bowl(S), wood legs (S)", 1, 200],
+          ["banana brush", "banana brush", 1, 50],
+          ["floating bathtub", "floating bathtub", 1, 150],
+          ["A D Basket + A D Board BR", "all day basket + all day board brown", 2, 150],
+          ["A D Basket + A D Board WH", "all day basket + all day board white", 2, 150],
+          ["A D Basket", "all day basket", 1, 80],
+          ["BoxLW", "poo poo box long white", 1, 200],
+          ["Dry Mat", "drymat", 1, 100],
+          ["Duit smile dental brush", "Duit smile dental brush (สินค้าแจกฟรี)", 1, 50],
+          ["Legs S", "Leg (S)", 1, 50],
+          ["Mat L", "poo poo mat white (L)", 1, 100],
+          ["Mouse bot", "mouse bot set", 1, 50],
+          ["Refil 62cm STDB", "standing board 62cm refil brown", 1, 75],
+          ["Stand Board", "standing board frame + Refil (White or Brown)", 1, 150],
+          ["Tray", "silicone tray", 1, 50],
+          ["Waterpot", "waterpot", 1, 80],
+          ["Waterpot Filter B", "waterpot active carbon block filter B type", 1, 50],
+          ["duit train express (dtx)", "train express (dtx)", 1, 100],
+          ["poo poo box 2 way", "poo poo box 2 way", 1, 150],
+          ["A D Board BR + All day rack", "all day board brown + all day rack", 2, 300],
+          ["A D Board BR + BoxCW", "all day board brown + poo poo box cube white", 2, 200],
+          ["A D Board WH + All day rack", "all day board white + all day rack", 2, 300],
+          ["A D Board WH + anti-bug-light", "all day board white + Antibug light", 2, 200],
+          ["A D Board WH + floating bathtub", "all day board white + floating bathtub", 2, 200],
+          ["All day rack + anti-bug-light", "all day rack + Antibug light", 2, 300],
+          ["Bowl M + Daily White M", "Daily Table Ceramic Bowl White (M) + daily table (M) white", 2, 100],
+          ["Bowl M + Legs L", "The Table Ceramic Bowl White (M) + Leg (M) <- เรียก Legs L ในใบส่ง", 2, 70],
+          ["Bowl S + TB+Long M (4 cm.)", "The Table Ceramic Bowl White (S) + thetableplus, bowl(M), wood legs (L)", 2, 200],
+          ["BoxCW + ScoopW", "poo poo box cube white + poo poo scoop white (hole)", 2, 200],
+          ["Brush + Peek A Poo", "Peek a poo brush only + Peek a poo 2pcs set (include bridge)", 2, 200],
+          ["Daily Mushroom S + Legs S", "daily table (S) mushroom + Leg (S)", 2, 80],
+          ["Mat M + ScoopW", "poo poo mat white (M) + poo poo scoop white (hole)", 2, 80],
+          ["Mouse bot + ScoopW", "mouse bot set + poo poo scoop white (hole)", 2, 70],
+          ["Mouse bot + anti-bug-light", "mouse bot set + Antibug light", 2, 50],
+          ["Peanut Board + ScoopW", "peanut board + poo poo scoop white (hole)", 2, 200],
+          ["Soft Brush + anti-bug-light", "Soft Brush + Antibug light", 2, 70],
+          ["Waterpot + anti-bug-light", "waterpot + Antibug light", 2, 80],
+          ["banana brush + duit train express (dtx)", "banana brush + train express (dtx)", 2, 120],
+          ["A D Board WH + BoxCW + ScoopW", "all day board white + poo poo box cube white + poo poo scoop white (hole)", 3, 200],
+          ["BoxLW + Mat L + ScoopW", "poo poo box long white + poo poo mat white (L) + poo poo scoop white (hole)", 3, 300],
+          ["-", "Table hammock", 1, 300],
+          ["-", "windown hammock", 1, 150],
+          ["-", "mini cat tower", 1, 500],
+          ["-", "City rover", 1, 500],
+          ["-", "tiramisu board 2", 1, 150],
+          ["-", "all scoop mint", 1, 50],
+          ["-", "all scoop white", 1, 50],
+          ["-", "Standing borad", 1, 150],
+          ["-", "Stool house", 1, 300],
+          ["-", "tiramisu board 3", 1, 300]
+        ]
+      }
     };
-    
+
     // Migration check for database update
     if (localStorage.getItem('shipping_db_version') !== '8.0') {
       localStorage.setItem('shipping_excel_data', JSON.stringify(DEFAULT_EXCEL_DATA));
@@ -566,24 +1206,24 @@
     let CUSTOM_DATA = JSON.parse(localStorage.getItem('shipping_custom_data')) || {};
 
     function toggleTheme() { document.documentElement.classList.toggle("dark"); localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light"); }
-    if(localStorage.getItem("theme")==="dark") document.documentElement.classList.add("dark");
+    if (localStorage.getItem("theme") === "dark") document.documentElement.classList.add("dark");
 
     function switchMainTab(n, b) {
-      document.querySelectorAll(".main-tab").forEach(t=>t.classList.remove("active"));
-      document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
-      b.classList.add("active"); document.getElementById("view-"+n).classList.add("active");
-      if(n==='rates') renderRateTables(); if(n==='excel') renderExcelTable(); if(n==='calc') renderSummary();
+      document.querySelectorAll(".main-tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+      b.classList.add("active"); document.getElementById("view-" + n).classList.add("active");
+      if (n === 'rates') renderRateTables(); if (n === 'excel') renderExcelTable(); if (n === 'calc') renderSummary();
     }
     function switchTab(n, b) {
-      document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-      document.querySelectorAll(".tc").forEach(c=>c.classList.remove("active"));
-      b.classList.add("active"); document.getElementById("tc-"+n).classList.add("active");
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".tc").forEach(c => c.classList.remove("active"));
+      b.classList.add("active"); document.getElementById("tc-" + n).classList.add("active");
     }
 
     function getVW(w, l, h, c) { return (w * l * h) / (VOL_DIV[c] || 5000); }
-    function getRate(c, kg, zi) { 
-      if(!RATES[c]) return null;
-      for(let r of RATES[c]) { if(kg <= r[0]) return r[zi+1]; }
+    function getRate(c, kg, zi) {
+      if (!RATES[c]) return null;
+      for (let r of RATES[c]) { if (kg <= r[0]) return r[zi + 1]; }
       return null;
     }
 
@@ -593,37 +1233,40 @@
       let data = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA;
       let sheet = data.sheets[data.activeSheet] || [];
       let opts = '<option value="">— เลือกสินค้า —</option>';
-      sheet.slice(1).forEach(r => { 
-        if(r[1]) {
+      sheet.slice(1).forEach(r => {
+        if (r[1]) {
           let text = r[1].includes(' + ') ? r[1].split(' + ').map(i => '- ' + i.trim()).join(' ') : '- ' + r[1];
-          opts += `<option value="${r[1]}">${text}</option>`; 
+          opts += `<option value="${r[1]}">${text}</option>`;
         }
       });
-      if(pSel) pSel.innerHTML = opts;
-      if(cSel) cSel.innerHTML = opts;
+      if (pSel) pSel.innerHTML = opts;
+      if (cSel) cSel.innerHTML = opts;
     }
 
     function onPick() {
-      const val = document.getElementById("pSel").value; if(!val) return resetCalcUI();
+      const val = document.getElementById("pSel").value; if (!val) return resetCalcUI();
       let data = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA;
-      const sheet = data.sheets[data.activeSheet]; if(!sheet) return;
-      const headers = sheet[0]; const row = sheet.find(r => r[1] === val); if(!row) return;
-      
+      const sheet = data.sheets[data.activeSheet]; if (!sheet) return;
+      const headers = sheet[0]; const row = sheet.find(r => r[1] === val); if (!row) return;
+
       const collectIdx = headers.findIndex(h => h.includes('ควรเก็บ'));
       const qtyIdx = headers.findIndex(h => h.includes('จำนวน'));
       const countIdx = headers.findIndex(h => h.includes('ครั้ง'));
-      
+
       // Find prices based on zone
       let bkkIdx = headers.findIndex((h, i) => i > 0 && (h.includes('กรุงเทพ') || h.includes('BKK')));
       let provIdx = headers.findIndex((h, i) => i > 0 && (h.includes('ต่างจังหวัด') || h.includes('Prov')));
       let remoteIdx = headers.findIndex((h, i) => i > 0 && (h.includes('ห่างไกล') || h.includes('Remote')));
-      
-      if(bkkIdx === -1) bkkIdx = 4;
-      if(provIdx === -1) provIdx = 5;
-      if(remoteIdx === -1) remoteIdx = 6;
-      
+
+      if (bkkIdx === -1) bkkIdx = 4;
+      if (provIdx === -1) provIdx = 5;
+      if (remoteIdx === -1) remoteIdx = 6;
+
       const zi = document.getElementById("zone").selectedIndex;
       const zonePriceIdx = [bkkIdx, provIdx, remoteIdx][zi];
+
+      document.getElementById("egPlaceholder").style.display = "none";
+      document.getElementById("egContent").style.display = "block";
 
       const bestCarrier = CARRIERS.reduce((a, b) => {
         const idxA = headers.findIndex(h => h.toLowerCase().includes(a));
@@ -637,16 +1280,16 @@
       document.getElementById("egProductName").innerText = val.includes(' + ') ? val.split(' + ').map(i => '- ' + i.trim()).join('\n') : val;
       document.getElementById("egCarrier").innerText = ID_MAP[bestCarrier] + " (ราคาดีที่สุด)";
       document.getElementById("egCarrier").className = "cbadge " + bestCarrier;
-      
+
       // SHOW TARGET PRICE (ควรเก็บ) AS PRIMARY
       const targetPrice = collectIdx !== -1 ? row[collectIdx] : "—";
-      document.getElementById("egPrice").innerHTML = (targetPrice||"0").toLocaleString() + '<small style="font-size:1.4rem; margin-left:4px;">฿</small>';
-      
+      document.getElementById("egPrice").innerHTML = (targetPrice || "0").toLocaleString() + '<small style="font-size:1.4rem; margin-left:4px;">฿</small>';
+
       // Show actual carrier cost in sub info
       document.getElementById("egQty").innerText = qtyIdx !== -1 ? row[qtyIdx] : "—";
-      
+
       const prod = PRODUCTS.find(p => p.name === val);
-      if(prod) {
+      if (prod) {
         document.getElementById("pInfo").style.display = "block";
         document.getElementById("iW").textContent = prod.wKg + " kg";
         document.getElementById("iD").textContent = `${prod.wid}x${prod.len}x${prod.hei} cm`;
@@ -657,57 +1300,57 @@
 
       CARRIERS.forEach(c => {
         const hIdx = headers.findIndex(h => h.toLowerCase().includes(c));
-        const pEl = document.getElementById("p"+ID_MAP[c]);
-        const dEl = document.getElementById("d"+ID_MAP[c]);
-        const card = document.getElementById("c"+ID_MAP[c]); card.classList.remove("best");
-        if(hIdx!==-1) { pEl.innerHTML = (row[hIdx] || "—") + "<small> ฿</small>"; dEl.textContent = "จาก Guideline"; }
+        const pEl = document.getElementById("p" + ID_MAP[c]);
+        const dEl = document.getElementById("d" + ID_MAP[c]);
+        const card = document.getElementById("c" + ID_MAP[c]); card.classList.remove("best");
+        if (hIdx !== -1) { pEl.innerHTML = (row[hIdx] || "—") + "<small> ฿</small>"; dEl.textContent = "จาก Guideline"; }
         else { pEl.textContent = "—"; dEl.textContent = "ไม่มีข้อมูล"; }
       });
     }
 
     function onManual() {
-      const w = parseFloat(document.getElementById("mW").value)||0;
-      const wd = parseFloat(document.getElementById("mWd").value)||0;
-      const ln = parseFloat(document.getElementById("mLn").value)||0;
-      const ht = parseFloat(document.getElementById("mHt").value)||0;
+      const w = parseFloat(document.getElementById("mW").value) || 0;
+      const wd = parseFloat(document.getElementById("mWd").value) || 0;
+      const ln = parseFloat(document.getElementById("mLn").value) || 0;
+      const ht = parseFloat(document.getElementById("mHt").value) || 0;
       const zi = document.getElementById("zone").selectedIndex;
-      if(!w || !wd || !ln || !ht) return;
-      
+      if (!w || !wd || !ln || !ht) return;
+
       document.getElementById("pSel").value = "";
       document.getElementById("pInfo").style.display = "none";
       document.getElementById("excelResult").style.display = "none";
-      
+
       const results = CARRIERS.map(c => {
         const vw = getVW(wd, ln, ht, c); const pkg = Math.max(w, vw); const pr = getRate(c, pkg, zi);
         return { c, pr, pkg };
       });
-      
-      const minP = Math.min(...results.filter(r => r.pr!==null).map(r => r.pr));
+
+      const minP = Math.min(...results.filter(r => r.pr !== null).map(r => r.pr));
       results.forEach(r => {
         const s = ID_MAP[r.c];
-        const pEl = document.getElementById("p"+s); const dEl = document.getElementById("d"+s);
-        const card = document.getElementById("c"+s);
-        if(r.pr === null) { pEl.textContent = "เกินขีดจำกัด"; dEl.textContent = "ไม่รองรับ"; card.classList.remove("best"); }
-        else { 
-          pEl.innerHTML = r.pr.toLocaleString() + "<small> ฿</small>"; dEl.textContent = `คิดจาก ${r.pkg.toFixed(2)} kg`; 
-          if(r.pr === minP && r.pr > 0) card.classList.add("best"); else card.classList.remove("best");
+        const pEl = document.getElementById("p" + s); const dEl = document.getElementById("d" + s);
+        const card = document.getElementById("c" + s);
+        if (r.pr === null) { pEl.textContent = "เกินขีดจำกัด"; dEl.textContent = "ไม่รองรับ"; card.classList.remove("best"); }
+        else {
+          pEl.innerHTML = r.pr.toLocaleString() + "<small> ฿</small>"; dEl.textContent = `คิดจาก ${r.pkg.toFixed(2)} kg`;
+          if (r.pr === minP && r.pr > 0) card.classList.add("best"); else card.classList.remove("best");
         }
       });
     }
-    
+
     function copySummaryToClipboard(e) {
       const btn = e.currentTarget;
       const name = document.getElementById("egProductName").innerText;
       const price = document.getElementById("egPrice").innerText.replace('฿', '').trim();
       const qty = document.getElementById("egQty").innerText;
       const zone = document.getElementById("zone").options[document.getElementById("zone").selectedIndex].text;
-      
+
       const text = `สรุปรายการจัดส่งสินค้า [Duit]\n` +
-                   `สินค้า: ${name}\n` +
-                   `จำนวน: ${qty} ชิ้น\n` +
-                   `ปลายทาง: ${zone}\n` +
-                   `ค่าบริการจัดส่ง: ${price} บาท`;
-                   
+        `สินค้า: ${name}\n` +
+        `จำนวน: ${qty} ชิ้น\n` +
+        `ปลายทาง: ${zone}\n` +
+        `ค่าบริการจัดส่ง: ${price} บาท`;
+
       navigator.clipboard.writeText(text).then(() => {
         const oldText = btn.innerHTML;
         btn.innerHTML = "คัดลอกเรียบร้อยแล้ว!";
@@ -725,11 +1368,11 @@
       const q = document.getElementById("mainSearchInput").value.toLowerCase();
       const res = document.getElementById("mainSearchResults");
       if (!q) { res.style.display = "none"; return; }
-      
+
       let data = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA;
       let sheet = data.sheets[data.activeSheet] || [];
       const filtered = sheet.slice(1).filter(r => r[1] && r[1].toLowerCase().includes(q)).slice(0, 15);
-      
+
       if (filtered.length === 0) {
         res.innerHTML = '<div class="search-result-item" style="color:var(--muted);">ไม่พบสินค้าในฐานข้อมูล</div>';
       } else {
@@ -760,31 +1403,32 @@
     });
 
     function resetCalcUI() {
-      document.getElementById("excelResult").style.display = "none";
+      document.getElementById("egPlaceholder").style.display = "block";
+      document.getElementById("egContent").style.display = "none";
       document.getElementById("pInfo").style.display = "none";
-      CARRIERS.forEach(c => { 
-        document.getElementById("p"+ID_MAP[c]).innerHTML = "—<small> ฿</small>"; 
-        document.getElementById("d"+ID_MAP[c]).textContent = "เลือกสินค้า";
-        document.getElementById("c"+ID_MAP[c]).classList.remove("best");
+      CARRIERS.forEach(c => {
+        document.getElementById("p" + ID_MAP[c]).innerHTML = "—<small> ฿</small>";
+        document.getElementById("d" + ID_MAP[c]).textContent = "เลือกสินค้า";
+        document.getElementById("c" + ID_MAP[c]).classList.remove("best");
       });
     }
 
     function addToCart() {
-      const val = document.getElementById("cartProductSel").value; if(!val) return;
-      const qty = parseInt(document.getElementById("cartProductQty").value)||1;
-      
+      const val = document.getElementById("cartProductSel").value; if (!val) return;
+      const qty = parseInt(document.getElementById("cartProductQty").value) || 1;
+
       // Try to find physical info from PRODUCTS or Excel (simplified)
       let prod = PRODUCTS.find(p => p.name === val);
-      if(!prod) prod = { name: val, wKg: 0.5, wid: 20, len: 20, hei: 10 }; // Default if not in manual list
-      
-      CART.push({...prod, qty}); renderCart();
+      if (!prod) prod = { name: val, wKg: 0.5, wid: 20, len: 20, hei: 10 }; // Default if not in manual list
+
+      CART.push({ ...prod, qty }); renderCart();
     }
 
     function renderCart() {
       const tbody = document.getElementById("cartTbody"); tbody.innerHTML = "";
-      let tw=0, mwd=0, mln=0, sht=0;
+      let tw = 0, mwd = 0, mln = 0, sht = 0;
       CART.forEach((item, i) => {
-        const rw = item.wKg * item.qty; tw+=rw; mwd=Math.max(mwd, item.wid); mln=Math.max(mln, item.len); sht+=item.hei * item.qty;
+        const rw = item.wKg * item.qty; tw += rw; mwd = Math.max(mwd, item.wid); mln = Math.max(mln, item.len); sht += item.hei * item.qty;
         tbody.innerHTML += `<tr><td>${item.name}</td><td class="r">${item.qty}</td><td class="r">${rw.toFixed(2)} kg</td><td class="c"><button onclick="CART.splice(${i},1);renderCart()" style="border:none; background:none; color:var(--warn); cursor:pointer; font-size:1.2rem;">×</button></td></tr>`;
       });
       document.getElementById("cartTotalWeight").value = tw.toFixed(2);
@@ -795,29 +1439,29 @@
     }
 
     function renderCartCalc() {
-      const w = parseFloat(document.getElementById("cartTotalWeight").value)||0;
-      const wd = parseFloat(document.getElementById("cartTotalWd").value)||0;
-      const ln = parseFloat(document.getElementById("cartTotalLn").value)||0;
-      const ht = parseFloat(document.getElementById("cartTotalHt").value)||0;
+      const w = parseFloat(document.getElementById("cartTotalWeight").value) || 0;
+      const wd = parseFloat(document.getElementById("cartTotalWd").value) || 0;
+      const ln = parseFloat(document.getElementById("cartTotalLn").value) || 0;
+      const ht = parseFloat(document.getElementById("cartTotalHt").value) || 0;
       const zi = document.getElementById("cartZone").selectedIndex;
-      if(w<=0 && CART.length === 0) return;
-      
+      if (w <= 0 && CART.length === 0) return;
+
       const res = document.getElementById("cartCalcResult"); res.style.display = "block";
       const tbody = document.getElementById("cartCalcTbody"); tbody.innerHTML = "";
-      
+
       // 1. Try Guideline Match for combined items
       let combinedName = CART.map(item => item.name).sort().join(" + ");
       let data = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA;
       let sheet = data.sheets[data.activeSheet] || [];
       let headers = sheet[0];
       let row = sheet.find(r => r[1] === combinedName);
-      
-      if(row) {
+
+      if (row) {
         // Find best carrier from Guideline row
         CARRIERS.forEach(c => {
           const hIdx = headers.findIndex(h => h.toLowerCase().includes(c));
           const pr = hIdx !== -1 ? row[hIdx] : null;
-          tbody.innerHTML += `<tr class="best"><td style="color:var(--accent); font-weight:bold;">${ID_MAP[c]} (Guideline Match)</td><td class="r">ตามตาราง</td><td class="r" style="font-weight:800; color:var(--accent);">${pr?pr.toLocaleString()+' ฿':'—'}</td></tr>`;
+          tbody.innerHTML += `<tr class="best"><td style="color:var(--accent); font-weight:bold;">${ID_MAP[c]} (Guideline Match)</td><td class="r">ตามตาราง</td><td class="r" style="font-weight:800; color:var(--accent);">${pr ? pr.toLocaleString() + ' ฿' : '—'}</td></tr>`;
         });
         return; // Stop here if matched
       }
@@ -825,52 +1469,52 @@
       // 2. Fallback to physical calculation
       CARRIERS.forEach(c => {
         const vw = getVW(wd, ln, ht, c); const pkg = Math.max(w, vw); const pr = getRate(c, pkg, zi);
-        tbody.innerHTML += `<tr><td>${ID_MAP[c]}</td><td class="r">${pkg.toFixed(2)} kg</td><td class="r" style="font-weight:800; color:var(--accent);">${pr?pr.toLocaleString()+' ฿':'—'}</td></tr>`;
+        tbody.innerHTML += `<tr><td>${ID_MAP[c]}</td><td class="r">${pkg.toFixed(2)} kg</td><td class="r" style="font-weight:800; color:var(--accent);">${pr ? pr.toLocaleString() + ' ฿' : '—'}</td></tr>`;
       });
     }
 
     function renderSummary() {
-      const tbody = document.getElementById("sTbody"); const thead = document.getElementById("sTheadRow"); if(!tbody || !thead) return;
+      const tbody = document.getElementById("sTbody"); const thead = document.getElementById("sTheadRow"); if (!tbody || !thead) return;
       let data = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA;
-      const sheet = data.sheets[data.activeSheet]; if(!sheet) return;
+      const sheet = data.sheets[data.activeSheet]; if (!sheet) return;
       const hs = sheet[0];
-      
+
       const collectIdx = hs.findIndex(h => h.includes('ควรเก็บ'));
       const carriersIdx = hs.map((h, i) => CARRIERS.some(c => h.toLowerCase().includes(c)) ? i : -1).filter(i => i !== -1);
       const displayIdx = [1, 2, 3].filter(i => i !== -1);
 
-      thead.innerHTML = "<th>#</th>" + displayIdx.map(i => `<th class="${i===collectIdx?'highlight-collect':''}">${hs[i]}</th>`).join("") + CUSTOM_COLS.map((c, i) => `<th>${c} <button onclick="deleteCustomCol(${i})" style="border:none;background:none;color:var(--warn);cursor:pointer;">×</button></th>`).join("");
-      
+      thead.innerHTML = "<th>#</th>" + displayIdx.map(i => `<th class="${i === collectIdx ? 'highlight-collect' : ''}">${hs[i]}</th>`).join("") + CUSTOM_COLS.map((c, i) => `<th>${c} <button onclick="deleteCustomCol(${i})" style="border:none;background:none;color:var(--warn);cursor:pointer;">×</button></th>`).join("");
+
       const q = (document.getElementById("sSearch")?.value || "").toLowerCase();
       const filtered = sheet.slice(1).filter(r => !q || r.join(' ').toLowerCase().includes(q));
-      const paged = filtered.slice((currentSummaryPage-1)*PAGE_SIZE, currentSummaryPage*PAGE_SIZE);
+      const paged = filtered.slice((currentSummaryPage - 1) * PAGE_SIZE, currentSummaryPage * PAGE_SIZE);
 
       tbody.innerHTML = paged.map((row, idx) => {
         const originalRi = sheet.findIndex(r => r === row);
         let minPrice = Math.min(...carriersIdx.map(ci => parseFloat(row[ci]) || Infinity).filter(p => p > 0));
-        return `<tr><td class="idx">${((currentSummaryPage-1)*PAGE_SIZE) + idx + 1}</td>` + displayIdx.map(ci => {
+        return `<tr><td class="idx">${((currentSummaryPage - 1) * PAGE_SIZE) + idx + 1}</td>` + displayIdx.map(ci => {
           let v = row[ci]; const p = parseFloat(v);
           const isBest = carriersIdx.includes(ci) && p === minPrice && p > 0;
           if (ci === 1 && typeof v === 'string' && v.includes(' + ')) {
             v = v.split(' + ').map(i => '- ' + i.trim()).join('<br>');
           }
-          return `<td class="${isBest?'best':''} ${ci===collectIdx?'highlight-collect':''}">${v}</td>`;
-        }).join("") + CUSTOM_COLS.map((_, ci) => `<td><input value="${CUSTOM_DATA[`${originalRi}_${ci}`]||''}" onchange="saveCustomData(${originalRi},${ci},this.value)" class="rate-input" style="width:100%!important;border:none;background:transparent;"></td>`).join("") + "</tr>";
+          return `<td class="${isBest ? 'best' : ''} ${ci === collectIdx ? 'highlight-collect' : ''}">${v}</td>`;
+        }).join("") + CUSTOM_COLS.map((_, ci) => `<td><input value="${CUSTOM_DATA[`${originalRi}_${ci}`] || ''}" onchange="saveCustomData(${originalRi},${ci},this.value)" class="rate-input" style="width:100%!important;border:none;background:transparent;"></td>`).join("") + "</tr>";
       }).join('');
-      renderPagination("sPagination", filtered.length, currentSummaryPage, (p)=> { currentSummaryPage=p; renderSummary(); });
+      renderPagination("sPagination", filtered.length, currentSummaryPage, (p) => { currentSummaryPage = p; renderSummary(); });
     }
 
     function saveProduct() {
       const p = {
         name: document.getElementById("pName").value,
-        wKg: parseFloat(document.getElementById("pWeight").value)||0,
-        wid: parseFloat(document.getElementById("pW").value)||0,
-        len: parseFloat(document.getElementById("pL").value)||0,
-        hei: parseFloat(document.getElementById("pH").value)||0
+        wKg: parseFloat(document.getElementById("pWeight").value) || 0,
+        wid: parseFloat(document.getElementById("pW").value) || 0,
+        len: parseFloat(document.getElementById("pL").value) || 0,
+        hei: parseFloat(document.getElementById("pH").value) || 0
       };
-      if(!p.name) return alert("ระบุชื่อสินค้า");
+      if (!p.name) return alert("ระบุชื่อสินค้า");
       PRODUCTS.push(p); localStorage.setItem("shipping_products", JSON.stringify(PRODUCTS)); renderManageProducts();
-      ['pName','pWeight','pW','pL','pH'].forEach(id=>document.getElementById(id).value="");
+      ['pName', 'pWeight', 'pW', 'pL', 'pH'].forEach(id => document.getElementById(id).value = "");
     }
     function renderManageProducts() {
       const tbody = document.getElementById("manageProdTbody"); tbody.innerHTML = PRODUCTS.map((p, i) => `<tr><td>${p.name}</td><td class="r">${p.wKg}</td><td class="r">${p.wid}x${p.len}x${p.hei}</td><td class="c"><button onclick="PRODUCTS.splice(${i},1);renderManageProducts()" style="border:none;background:none;color:var(--warn);cursor:pointer;">ลบ</button></td></tr>`).join("");
@@ -879,46 +1523,46 @@
 
     function renderRateTables() {
       CARRIERS.forEach(c => {
-        const div = document.getElementById("tc-"+c);
-        div.innerHTML = `<div class="st-wrap"><table class="st"><thead><tr><th>น้ำหนักสูงสุด (kg)</th>` + ZONES.map((z, i) => `<th class="r"><input value="${z}" onchange="ZONES[${i}]=this.value;localStorage.setItem('shipping_zones',JSON.stringify(ZONES));renderRateTables()" class="rate-input" style="width:100px!important; color:white; background:transparent; border:1px dashed #444;"></th>`).join("") + `</tr></thead><tbody>` + 
-          RATES[c].map((r, ri) => `<tr><td><input type="number" value="${r[0]}" onchange="RATES['${c}'][${ri}][0]=parseFloat(this.value);localStorage.setItem('shipping_rates',JSON.stringify(RATES))" class="rate-input"></td>` + ZONES.map((_, zi) => `<td class="r"><input type="number" value="${r[zi+1]}" onchange="RATES['${c}'][${ri}][${zi+1}]=parseFloat(this.value);localStorage.setItem('shipping_rates',JSON.stringify(RATES))" class="rate-input"> ฿</td>`).join("") + `</tr>`).join("") + `</tbody></table></div>`;
+        const div = document.getElementById("tc-" + c);
+        div.innerHTML = `<div class="st-wrap"><table class="st"><thead><tr><th>น้ำหนักสูงสุด (kg)</th>` + ZONES.map((z, i) => `<th class="r"><input value="${z}" onchange="ZONES[${i}]=this.value;localStorage.setItem('shipping_zones',JSON.stringify(ZONES));renderRateTables()" class="rate-input" style="width:100px!important; color:white; background:transparent; border:1px dashed #444;"></th>`).join("") + `</tr></thead><tbody>` +
+          RATES[c].map((r, ri) => `<tr><td><input type="number" value="${r[0]}" onchange="RATES['${c}'][${ri}][0]=parseFloat(this.value);localStorage.setItem('shipping_rates',JSON.stringify(RATES))" class="rate-input"></td>` + ZONES.map((_, zi) => `<td class="r"><input type="number" value="${r[zi + 1]}" onchange="RATES['${c}'][${ri}][${zi + 1}]=parseFloat(this.value);localStorage.setItem('shipping_rates',JSON.stringify(RATES))" class="rate-input"> ฿</td>`).join("") + `</tr>`).join("") + `</tbody></table></div>`;
       });
     }
 
     function handleExcelUpload(e) {
-      const file = e.target.files[0]; if(!file) return;
+      const file = e.target.files[0]; if (!file) return;
       const reader = new FileReader(); reader.onload = (evt) => {
-        const wb = XLSX.read(evt.target.result, {type:'binary'});
+        const wb = XLSX.read(evt.target.result, { type: 'binary' });
         const data = { activeSheet: wb.SheetNames[0], sheets: {} };
-        wb.SheetNames.forEach(n => { data.sheets[n] = XLSX.utils.sheet_to_json(wb.Sheets[n], {header:1}); });
+        wb.SheetNames.forEach(n => { data.sheets[n] = XLSX.utils.sheet_to_json(wb.Sheets[n], { header: 1 }); });
         localStorage.setItem("shipping_excel_data", JSON.stringify(data)); renderExcelTable(); rebuildProductDropdown(); renderSummary();
       }; reader.readAsBinaryString(file);
     }
     function renderExcelTable() {
       const data = JSON.parse(localStorage.getItem("shipping_excel_data")) || DEFAULT_EXCEL_DATA;
-      const sheet = data.sheets[data.activeSheet]; const tbody = document.getElementById("excelTbody"); if(!tbody) return;
+      const sheet = data.sheets[data.activeSheet]; const tbody = document.getElementById("excelTbody"); if (!tbody) return;
       const head = document.querySelector("#excelTable thead");
       head.innerHTML = "<tr><th>#</th>" + sheet[0].map((h, i) => `<th>${h}</th>`).join("") + "</tr>";
       const q = (document.getElementById("excelSearch")?.value || "").toLowerCase();
       const filtered = sheet.slice(1).filter(r => !q || r.join(' ').toLowerCase().includes(q));
-      const paged = filtered.slice((currentExcelPage-1)*PAGE_SIZE, currentExcelPage*PAGE_SIZE);
-      tbody.innerHTML = paged.map((r, i) => `<tr><td class="idx">${((currentExcelPage-1)*PAGE_SIZE) + i + 1}</td>` + r.map(v => `<td>${v}</td>`).join("") + "</tr>").join("");
-      renderPagination("excelPagination", filtered.length, currentExcelPage, (p)=> { currentExcelPage=p; renderExcelTable(); });
+      const paged = filtered.slice((currentExcelPage - 1) * PAGE_SIZE, currentExcelPage * PAGE_SIZE);
+      tbody.innerHTML = paged.map((r, i) => `<tr><td class="idx">${((currentExcelPage - 1) * PAGE_SIZE) + i + 1}</td>` + r.map(v => `<td>${v}</td>`).join("") + "</tr>").join("");
+      renderPagination("excelPagination", filtered.length, currentExcelPage, (p) => { currentExcelPage = p; renderExcelTable(); });
     }
 
     function renderPagination(id, total, current, onChange) {
-      const container = document.getElementById(id); if(!container) return;
-      const pages = Math.ceil(total/PAGE_SIZE) || 1;
-      container.innerHTML = `<button class="page-btn" ${current===1?'disabled':''} onclick="(${onChange})( ${current-1} )">← ก่อนหน้า</button><div style="font-weight:bold;">${current} / ${pages}</div><button class="page-btn" ${current===pages?'disabled':''} onclick="(${onChange})( ${current+1} )">ถัดไป →</button>`;
+      const container = document.getElementById(id); if (!container) return;
+      const pages = Math.ceil(total / PAGE_SIZE) || 1;
+      container.innerHTML = `<button class="page-btn" ${current === 1 ? 'disabled' : ''} onclick="(${onChange})( ${current - 1} )">← ก่อนหน้า</button><div style="font-weight:bold;">${current} / ${pages}</div><button class="page-btn" ${current === pages ? 'disabled' : ''} onclick="(${onChange})( ${current + 1} )">ถัดไป →</button>`;
     }
 
-    function addCustomCol() { const n = prompt("ชื่อคอลัมน์?"); if(n){ CUSTOM_COLS.push(n); localStorage.setItem('shipping_custom_cols', JSON.stringify(CUSTOM_COLS)); renderSummary(); } }
-    function deleteCustomCol(i) { if(confirm("ลบ?")){ CUSTOM_COLS.splice(i,1); localStorage.setItem('shipping_custom_cols', JSON.stringify(CUSTOM_COLS)); renderSummary(); } }
+    function addCustomCol() { const n = prompt("ชื่อคอลัมน์?"); if (n) { CUSTOM_COLS.push(n); localStorage.setItem('shipping_custom_cols', JSON.stringify(CUSTOM_COLS)); renderSummary(); } }
+    function deleteCustomCol(i) { if (confirm("ลบ?")) { CUSTOM_COLS.splice(i, 1); localStorage.setItem('shipping_custom_cols', JSON.stringify(CUSTOM_COLS)); renderSummary(); } }
     function saveCustomData(r, c, v) { CUSTOM_DATA[`${r}_${c}`] = v; localStorage.setItem('shipping_custom_data', JSON.stringify(CUSTOM_DATA)); }
-    function addExcelRow() { let d = JSON.parse(localStorage.getItem('shipping_excel_data'))||DEFAULT_EXCEL_DATA; d.sheets[d.activeSheet].push(new Array(d.sheets[d.activeSheet][0].length).fill("")); localStorage.setItem('shipping_excel_data', JSON.stringify(d)); renderExcelTable(); }
-    function addExcelCol() { const n = prompt("ชื่อคอลัมน์?"); if(n){ let d = JSON.parse(localStorage.getItem('shipping_excel_data'))||DEFAULT_EXCEL_DATA; d.sheets[d.activeSheet].forEach((r, i) => r.push(i===0?n:"")); localStorage.setItem('shipping_excel_data', JSON.stringify(d)); renderExcelTable(); } }
-    function resetRates() { if(confirm("รีเซ็ต?")){ localStorage.removeItem("shipping_rates"); localStorage.removeItem("shipping_zones"); location.reload(); } }
-    function resetExcelData() { if(confirm("ล้างข้อมูล?")){ localStorage.removeItem("shipping_excel_data"); location.reload(); } }
+    function addExcelRow() { let d = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA; d.sheets[d.activeSheet].push(new Array(d.sheets[d.activeSheet][0].length).fill("")); localStorage.setItem('shipping_excel_data', JSON.stringify(d)); renderExcelTable(); }
+    function addExcelCol() { const n = prompt("ชื่อคอลัมน์?"); if (n) { let d = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA; d.sheets[d.activeSheet].forEach((r, i) => r.push(i === 0 ? n : "")); localStorage.setItem('shipping_excel_data', JSON.stringify(d)); renderExcelTable(); } }
+    function resetRates() { if (confirm("รีเซ็ต?")) { localStorage.removeItem("shipping_rates"); localStorage.removeItem("shipping_zones"); location.reload(); } }
+    function resetExcelData() { if (confirm("ล้างข้อมูล?")) { localStorage.removeItem("shipping_excel_data"); location.reload(); } }
     function exportExcelDB() {
       const d = JSON.parse(localStorage.getItem("shipping_excel_data")) || DEFAULT_EXCEL_DATA;
       const wb = XLSX.utils.book_new();
@@ -926,14 +1570,15 @@
       XLSX.writeFile(wb, "Shipping_Data.xlsx");
     }
 
-    window.onload = () => { 
+    window.onload = () => {
       rebuildProductDropdown(); renderSummary(); renderExcelTable();
       const zSel = document.getElementById("cartZone");
-      if(zSel) {
+      if (zSel) {
         ZONES.forEach((z, i) => { zSel.innerHTML += `<option value="${i}">${z}</option>`; });
       }
     };
   </script>
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </body>
+
 </html>
