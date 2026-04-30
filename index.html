@@ -655,6 +655,14 @@
       background: #0f172a;
     }
 
+    .st tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .dark .st tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.01);
+    }
+
     .st td {
       padding: 12px 16px;
       border-bottom: 1px solid var(--border);
@@ -872,6 +880,11 @@
       transition: all 0.2s;
       font-size: 0.95rem;
       color: var(--text);
+      line-height: 1.4;
+    }
+
+    .search-result-item:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02);
     }
 
     .search-result-item:hover {
@@ -1405,7 +1418,7 @@
         res.innerHTML = filtered.map(r => {
           let text = r[1].trim();
           if (text.includes(' + ')) {
-            text = text.split(' + ').map(i => '- ' + i.trim()).join(' ');
+            text = text.split(' + ').map(i => '- ' + i.trim()).join('<br>');
           } else {
             if (text.startsWith('- ')) text = text.substring(2).trim();
           }
