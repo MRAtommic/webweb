@@ -682,6 +682,19 @@
         min-width: auto;
         width: 100%;
       }
+
+      .st td.idx {
+        white-space: nowrap !important;
+        min-width: 40px;
+      }
+    }
+
+    .st td.idx {
+      white-space: nowrap;
+      text-align: center;
+      color: var(--muted);
+      font-weight: 700;
+      font-family: "IBM Plex Mono", monospace;
     }
 
     .highlight-collect {
@@ -721,6 +734,10 @@
         justify-content: space-between;
         align-items: center;
         gap: 20px;
+      }
+      .summary-header-row > div {
+        flex-wrap: nowrap !important;
+        width: auto !important;
       }
     }
 
@@ -990,10 +1007,10 @@
       <div class="card">
         <div class="summary-header-row">
           <div class="card-title" style="margin-bottom:0;">Guideline สรุปค่าจัดส่ง – แบรนด์ Duit</div>
-          <div style="display:flex; align-items:center; gap:12px;">
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; width:100%; justify-content: flex-end;">
             <input type="text" id="sSearch" onkeyup="renderSummary()" placeholder="ค้นหาชื่อสินค้า..."
-              style="width:250px;">
-            <button class="export-btn" onclick="addCustomCol()">+ เพิ่มคอลัมน์เอง</button>
+              style="flex:1; min-width:150px; margin:0;">
+            <button class="export-btn" onclick="addCustomCol()" style="white-space:nowrap; margin:0;">+ เพิ่มคอลัมน์เอง</button>
           </div>
         </div>
         <div class="st-wrap">
