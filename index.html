@@ -566,7 +566,12 @@
       let data = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA;
       let sheet = data.sheets[data.activeSheet] || [];
       let opts = '<option value="">— เลือกสินค้า —</option>';
-      sheet.slice(1).forEach(r => { if(r[1]) opts += `<option value="${r[1]}">${r[1]}</option>`; });
+      sheet.slice(1).forEach(r => { 
+        if(r[1]) {
+          let text = r[1].includes(' + ') ? r[1].split(' + ').map(i => '- ' + i.trim()).join(' ') : '- ' + r[1];
+          opts += `<option value="${r[1]}">${text}</option>`; 
+        }
+      });
       if(pSel) pSel.innerHTML = opts;
       if(cSel) cSel.innerHTML = opts;
     }
