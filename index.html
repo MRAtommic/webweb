@@ -1290,7 +1290,13 @@
       }, "spx");
 
       document.getElementById("excelResult").style.display = "block";
-      document.getElementById("egProductName").innerText = val.includes(' + ') ? val.split(' + ').map(i => '- ' + i.trim()).join('\n') : val;
+      const isBundle = val.includes(' + ');
+      let displayTitle = val;
+      if (isBundle) {
+        displayTitle = val.split(' + ').map(i => '• ' + i.trim()).join('\n');
+      }
+      
+      document.getElementById("egProductName").innerHTML = (isBundle ? '<span style="display:inline-block; background:var(--warn); color:white; font-size:0.6rem; padding:2px 8px; border-radius:4px; margin-bottom:8px; vertical-align:middle; text-transform:uppercase; letter-spacing:1px; font-weight:900;">Combo Set</span><br>' : '') + displayTitle;
       document.getElementById("egCarrier").innerText = ID_MAP[bestCarrier] + " (ราคาดีที่สุด)";
       document.getElementById("egCarrier").className = "cbadge " + bestCarrier;
 
@@ -1509,7 +1515,11 @@
           let v = row[ci]; const p = parseFloat(v);
           const isBest = carriersIdx.includes(ci) && p === minPrice && p > 0;
           if (ci === 1 && typeof v === 'string' && v.includes(' + ')) {
-            v = v.split(' + ').map(i => '- ' + i.trim()).join('<br>');
+            const items = v.split(' + ');
+            v = `<div style="display:flex; flex-direction:column; gap:4px;">
+                  <span style="font-size:0.6rem; color:var(--warn); font-weight:800; text-transform:uppercase;">Combo (${items.length} ชิ้น)</span>
+                  ${items.map(i => `<span style="padding-left:12px; border-left:2px solid var(--border);">${i.trim()}</span>`).join('')}
+                </div>`;
           }
           return `<td class="${isBest ? 'best' : ''} ${ci === collectIdx ? 'highlight-collect' : ''}">${v}</td>`;
         }).join("") + CUSTOM_COLS.map((_, ci) => `<td><input value="${CUSTOM_DATA[`${originalRi}_${ci}`] || ''}" onchange="saveCustomData(${originalRi},${ci},this.value)" class="rate-input" style="width:100%!important;border:none;background:transparent;"></td>`).join("") + "</tr>";
