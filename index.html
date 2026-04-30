@@ -655,14 +655,6 @@
       background: #0f172a;
     }
 
-    .st tr:nth-child(even) td {
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .dark .st tr:nth-child(even) td {
-      background: rgba(255, 255, 255, 0.01);
-    }
-
     .st td {
       padding: 12px 16px;
       border-bottom: 1px solid var(--border);
@@ -1256,7 +1248,12 @@
       let opts = '<option value="">— เลือกสินค้า —</option>';
       sheet.slice(1).forEach(r => {
         if (r[1]) {
-          let text = r[1].includes(' + ') ? r[1].split(' + ').map(i => '- ' + i.trim()).join(' ') : r[1];
+          let text = r[1].trim();
+          if (text.includes(' + ')) {
+            text = text.split(' + ').map(i => '- ' + i.trim()).join(' ');
+          } else {
+            if (text.startsWith('- ')) text = text.substring(2).trim();
+          }
           opts += `<option value="${r[1]}">${text}</option>`;
         }
       });
@@ -1405,7 +1402,15 @@
       if (filtered.length === 0) {
         res.innerHTML = '<div class="search-result-item" style="color:var(--muted);">ไม่พบสินค้าในฐานข้อมูล</div>';
       } else {
-        res.innerHTML = filtered.map(r => `<div class="search-result-item" onclick="selectFromSearch('${r[1].replace(/'/g, "\\'")}')">${r[1]}</div>`).join("");
+        res.innerHTML = filtered.map(r => {
+          let text = r[1].trim();
+          if (text.includes(' + ')) {
+            text = text.split(' + ').map(i => '- ' + i.trim()).join(' ');
+          } else {
+            if (text.startsWith('- ')) text = text.substring(2).trim();
+          }
+          return `<div class="search-result-item" onclick="selectFromSearch('${r[1].replace(/'/g, "\\'")}')">${text}</div>`;
+        }).join("");
       }
       res.style.display = "block";
     }
