@@ -1301,7 +1301,7 @@
       const isBundle = val.includes(' + ');
       let displayTitle = val;
       if (isBundle) {
-        displayTitle = val.split(' + ').map(i => '- ' + i.trim()).join(' ');
+        displayTitle = val.split(' + ').map(i => '- ' + i.trim()).join('\n');
       } else {
         displayTitle = '- ' + val;
       }
@@ -1526,7 +1526,7 @@
           const isBest = carriersIdx.includes(ci) && p === minPrice && p > 0;
           if (ci === 1 && typeof v === 'string') {
             if (v.includes(' + ')) {
-              v = v.split(' + ').map(i => '- ' + i.trim()).join(' ');
+              v = v.split(' + ').map(i => '- ' + i.trim()).join('<br>');
             } else {
               v = '- ' + v;
             }
