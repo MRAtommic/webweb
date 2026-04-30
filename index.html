@@ -1058,7 +1058,7 @@
       <div class="card">
         <div class="card-title">ฐานข้อมูล Excel</div>
         <div class="summary-header-row">
-          <div style="display:flex; gap:12px;">
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
             <label class="export-btn" style="margin:0;">
               อัปโหลดไฟล์ Excel
               <input type="file" id="excelUpload" onchange="handleExcelUpload(event)" style="display:none;">
@@ -1066,9 +1066,9 @@
             <button class="page-btn" onclick="addExcelRow()">+ เพิ่มแถว</button>
             <button class="page-btn" onclick="addExcelCol()">+ เพิ่มคอลัมน์</button>
           </div>
-          <div style="display:flex; gap:12px;">
+          <div style="display:flex; gap:12px; flex-wrap:wrap; width:100%;">
             <input type="text" id="excelSearch" onkeyup="renderExcelTable()" placeholder="ค้นหาในตาราง..."
-              style="width:250px;">
+              style="flex:1; min-width:150px;">
             <button class="page-btn" onclick="exportExcelDB()">Export XLSX</button>
             <button class="page-btn" style="color:var(--warn);" onclick="resetExcelData()">ล้างข้อมูล</button>
           </div>
