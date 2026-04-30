@@ -458,13 +458,13 @@
         ["Bowl S", "The Table Ceramic Bowl White (S)", 1, 50],
         ["Legs L", "Leg (M) <- เรียก Legs L ในใบส่ง", 1, 50],
         ["catthenon", "catthenon", 1, 200],
-        ["A D Board WH", "all day board white and white cover", 1, 100],
+        ["A D Board WH", "all day board white", 1, 100],
         ["Bowl M", "The Table Ceramic Bowl White (M)", 1, 50],
         ["Peanut Board", "peanut board", 1, 200],
         ["anti-bug-light", "Antibug light", 1, 50],
         ["ScoopW + poo poo box 2 way", "poo poo scoop white (hole) + poo poo box 2 way", 2, 150],
         ["anti-bug-light + banana brush", "Antibug light + banana brush", 2, 80],
-        ["A D Board BR", "all day board brown and white cover", 1, 100],
+        ["A D Board BR", "all day board brown", 1, 100],
         ["BoxCW", "poo poo box cube white", 1, 200],
         ["Daily White M", "daily table (M) white", 1, 80],
         ["Mat M", "poo poo mat white (M)", 1, 80],
@@ -475,8 +475,8 @@
         ["TB+Short S (3 cm.)", "thetableplus, bowl(S), wood legs (S)", 1, 200],
         ["banana brush", "banana brush", 1, 50],
         ["floating bathtub", "floating bathtub", 1, 150],
-        ["A D Basket + A D Board BR", "all day basket + all day board brown and white cover", 2, 150],
-        ["A D Basket + A D Board WH", "all day basket + all day board white and white cover", 2, 150],
+        ["A D Basket + A D Board BR", "all day basket + all day board brown", 2, 150],
+        ["A D Basket + A D Board WH", "all day basket + all day board white", 2, 150],
         ["A D Basket", "all day basket", 1, 80],
         ["BoxLW", "poo poo box long white", 1, 200],
         ["Dry Mat", "drymat", 1, 100],
@@ -491,11 +491,11 @@
         ["Waterpot Filter B", "waterpot active carbon block filter B type", 1, 50],
         ["duit train express (dtx)", "train express (dtx)", 1, 100],
         ["poo poo box 2 way", "poo poo box 2 way", 1, 150],
-        ["A D Board BR + All day rack", "all day board brown and white cover + all day rack", 2, 300],
-        ["A D Board BR + BoxCW", "all day board brown and white cover + poo poo box cube white", 2, 200],
-        ["A D Board WH + All day rack", "all day board white and white cover + all day rack", 2, 300],
-        ["A D Board WH + anti-bug-light", "all day board white and white cover + Antibug light", 2, 200],
-        ["A D Board WH + floating bathtub", "all day board white and white cover + floating bathtub", 2, 200],
+        ["A D Board BR + All day rack", "all day board brown + all day rack", 2, 300],
+        ["A D Board BR + BoxCW", "all day board brown + poo poo box cube white", 2, 200],
+        ["A D Board WH + All day rack", "all day board white + all day rack", 2, 300],
+        ["A D Board WH + anti-bug-light", "all day board white + Antibug light", 2, 200],
+        ["A D Board WH + floating bathtub", "all day board white + floating bathtub", 2, 200],
         ["All day rack + anti-bug-light", "all day rack + Antibug light", 2, 300],
         ["Bowl M + Daily White M", "Daily Table Ceramic Bowl White (M) + daily table (M) white", 2, 100],
         ["Bowl M + Legs L", "The Table Ceramic Bowl White (M) + Leg (M) <- เรียก Legs L ในใบส่ง", 2, 70],
@@ -510,7 +510,7 @@
         ["Soft Brush + anti-bug-light", "Soft Brush + Antibug light", 2, 70],
         ["Waterpot + anti-bug-light", "waterpot + Antibug light", 2, 80],
         ["banana brush + duit train express (dtx)", "banana brush + train express (dtx)", 2, 120],
-        ["A D Board WH + BoxCW + ScoopW", "all day board white and white cover + poo poo box cube white + poo poo scoop white (hole)", 3, 200],
+        ["A D Board WH + BoxCW + ScoopW", "all day board white + poo poo box cube white + poo poo scoop white (hole)", 3, 200],
         ["BoxLW + Mat L + ScoopW", "poo poo box long white + poo poo mat white (L) + poo poo scoop white (hole)", 3, 300],
         ["-", "Table hammock", 1, 300],
         ["-", "windown hammock", 1, 150],
@@ -526,9 +526,9 @@
     };
     
     // Migration check for database update
-    if (localStorage.getItem('shipping_db_version') !== '7.0') {
+    if (localStorage.getItem('shipping_db_version') !== '8.0') {
       localStorage.setItem('shipping_excel_data', JSON.stringify(DEFAULT_EXCEL_DATA));
-      localStorage.setItem('shipping_db_version', '7.0');
+      localStorage.setItem('shipping_db_version', '8.0');
     }
 
     let PRODUCTS = JSON.parse(localStorage.getItem("shipping_products")) || DEFAULT_PRODUCTS;
