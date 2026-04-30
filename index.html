@@ -274,6 +274,20 @@
     }
 
     input.rate-input { width: 70px !important; text-align: right; padding: 4px 8px; }
+
+    /* Global Search Styling */
+    .search-container { margin: 0 0 24px 0; position: relative; }
+    .search-results-list {
+      position: absolute; top: 100%; left: 0; right: 0; background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; z-index: 1000; max-height: 350px; overflow-y: auto;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3); margin-top: 8px; backdrop-filter: blur(10px);
+    }
+    .search-result-item { padding: 14px 20px; cursor: pointer; border-bottom: 1px solid var(--border); transition: all 0.2s; font-size: 0.95rem; color: var(--text); }
+    .search-result-item:hover { background: var(--s2); color: var(--accent); padding-left: 25px; }
+    .search-result-item:last-child { border-bottom: none; }
+    #mainSearchInput { height: 56px; font-size: 1.1rem; border-radius: 16px; border: 2px solid var(--border); padding-left: 45px; background: var(--card); transition: border-color 0.3s; width: 100%; color: var(--text); }
+    #mainSearchInput:focus { border-color: var(--accent); outline: none; }
+    .search-icon-abs { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; z-index: 10; }
   </style>
 </head>
 
@@ -300,6 +314,15 @@
       <button class="main-tab active" onclick="switchMainTab('calc', this)">คำนวณรายชิ้น</button>
       <button class="main-tab" onclick="switchMainTab('rates', this)">ตั้งค่าค่าส่ง</button>
       <button class="main-tab" onclick="switchMainTab('excel', this)">ฐานข้อมูล Excel</button>
+    </div>
+
+    <!-- Global Search -->
+    <div class="search-container" id="mainSearchContainer">
+      <div class="fg" style="margin-bottom:0;">
+        <span class="search-icon-abs">🔍</span>
+        <input type="text" id="mainSearchInput" placeholder="พิมพ์ชื่อสินค้าเพื่อค้นหาราคาแนะนำ..." oninput="handleMainSearch()">
+      </div>
+      <div id="mainSearchResults" class="search-results-list" style="display:none;"></div>
     </div>
 
     <!-- Calc View -->
@@ -693,6 +716,44 @@
         alert("ไม่สามารถคัดลอกได้: " + err);
       });
     }
+
+    function handleMainSearch() {
+      const q = document.getElementById("mainSearchInput").value.toLowerCase();
+      const res = document.getElementById("mainSearchResults");
+      if (!q) { res.style.display = "none"; return; }
+      
+      let data = JSON.parse(localStorage.getItem('shipping_excel_data')) || DEFAULT_EXCEL_DATA;
+      let sheet = data.sheets[data.activeSheet] || [];
+      const filtered = sheet.slice(1).filter(r => r[1] && r[1].toLowerCase().includes(q)).slice(0, 15);
+      
+      if (filtered.length === 0) {
+        res.innerHTML = '<div class="search-result-item" style="color:var(--muted);">ไม่พบสินค้าในฐานข้อมูล</div>';
+      } else {
+        res.innerHTML = filtered.map(r => `<div class="search-result-item" onclick="selectFromSearch('${r[1].replace(/'/g, "\\'")}')">${r[1]}</div>`).join("");
+      }
+      res.style.display = "block";
+    }
+
+    function selectFromSearch(name) {
+      const pSel = document.getElementById("pSel");
+      pSel.value = name;
+      // If name not in dropdown (newly added in Excel but rebuild not called), update it
+      if (pSel.value !== name) {
+        rebuildProductDropdown();
+        pSel.value = name;
+      }
+      document.getElementById("mainSearchInput").value = "";
+      document.getElementById("mainSearchResults").style.display = "none";
+      onPick();
+    }
+
+    // Close search results when clicking outside
+    document.addEventListener("click", (e) => {
+      const container = document.getElementById("mainSearchContainer");
+      if (container && !container.contains(e.target)) {
+        document.getElementById("mainSearchResults").style.display = "none";
+      }
+    });
 
     function resetCalcUI() {
       document.getElementById("excelResult").style.display = "none";
